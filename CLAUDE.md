@@ -7,6 +7,7 @@ order with shipping.
 - Domain model and screens: [docs/domain.md](docs/domain.md)
 - Application architecture: [docs/architecture.md](docs/architecture.md)
 - Decisions and their costs: [docs/decisions.md](docs/decisions.md)
+- Catalog mockups (desktop and mobile): [docs/design/](docs/design/README.md)
 
 ## Status
 

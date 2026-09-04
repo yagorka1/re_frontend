@@ -4,3 +4,6 @@ coverage/
 node_modules/
 .husky/_/
 package-lock.json
+
+# Design mockups are exported verbatim from the design canvas, not hand-edited source.
+docs/design/*.html
