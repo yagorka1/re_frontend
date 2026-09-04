@@ -11,9 +11,10 @@ order with shipping.
 
 ## Status
 
-This repository is still an Angular CLI scaffold. There is no domain code yet:
-`app.routes.ts` is empty and `app.html` contains only `<router-outlet />`. Everything below
-describes the target conventions, not what is already implemented.
+The app is a walking skeleton: `/` lazily loads `features/catalog`, wrapped in the shared
+header and footer. The components are empty placeholders — no styling, no data, no logic.
+Every other feature folder is still empty. Most of what follows describes the target
+conventions, not what is already implemented.
 
 The toolchain, however, is real: ESLint, Prettier, git hooks and CI all run and pass.
 
@@ -80,7 +81,8 @@ Do not bypass hooks with `--no-verify`; CI runs the same checks and will fail an
 
 The app is zoneless — state that does not live in a signal will not re-render.
 
-- Always `ChangeDetectionStrategy.OnPush`, with `signal()` / `computed()` for state.
+- `OnPush` is the default change detection strategy since Angular 22 — do not set
+  `changeDetection` explicitly. Use `signal()` / `computed()` for state.
 - Signal-based IO: `input()`, `input.required()`, `output()`, `model()`. Do not use the
   `@Input` / `@Output` decorators in new code.
 - Inject with `inject()`, not constructor parameters.
@@ -101,8 +103,9 @@ through the `context7` MCP server instead of relying on memory.
 - Components and services execute on the server. No direct `window`, `document` or
   `localStorage` in fields, constructors or `ngOnInit`. Use `afterNextRender()`,
   `isPlatformBrowser()`, or inject `DOCUMENT`.
-- `src/app/app.routes.server.ts` currently prerenders `**`. Dynamic pages (item detail,
-  profile, chat) need `RenderMode.Server`; genuinely static pages stay `Prerender`.
+- `src/app/app.routes.server.ts` currently renders `**` with `RenderMode.Server`. Keep that
+  for dynamic pages (catalog, item detail, profile); add explicit `Prerender` entries for
+  genuinely static pages, and `Client` for authenticated areas.
 - On the server the auth token comes from the request cookie, never from `localStorage`.
 
 ## Generated API client

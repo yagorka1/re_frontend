@@ -46,11 +46,10 @@ singletons to `core/`.
 ## 3. Page component
 
 ```ts
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 @Component({
   selector: 'app-catalog-page',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   templateUrl: './catalog-page.html',
   styleUrl: './catalog-page.scss',
@@ -63,7 +62,8 @@ export class CatalogPage {
 }
 ```
 
-Required: `OnPush`, `inject()`, signal-based `input()` / `output()`, `@if` / `@for` in
+`OnPush` is the default change detection strategy since Angular 22 — do not set it
+explicitly. Required: `inject()`, signal-based `input()` / `output()`, `@if` / `@for` in
 templates. The app is zoneless — state outside a signal will not re-render.
 
 ## 4. Data layer
