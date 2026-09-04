@@ -1,0 +1,29 @@
+{
+  "header": {
+    "nav": {
+      "women": "Žene",
+      "men": "Muškarci",
+      "kids": "Deca",
+      "shoesAndBags": "Obuća i torbe"
+    },
+    "search": "Pretraga po brendu, artiklu, kategoriji…",
+    "actions": {
+      "wishlist": "Omiljeno",
+      "messages": "Poruke",
+      "profile": "Profil",
+      "sell": "Prodaj",
+      "menu": "Meni",
+      "closeMenu": "Zatvori meni"
+    }
+  },
+  "theme": {
+    "toLight": "Prebaci na svetlu temu",
+    "toDark": "Prebaci na tamnu temu"
+  },
+  "language": {
+    "label": "Jezik",
+    "en": "Engleski",
+    "sr": "Srpski",
+    "ru": "Ruski"
+  }
+}

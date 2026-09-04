@@ -1,0 +1,29 @@
+{
+  "header": {
+    "nav": {
+      "women": "Women",
+      "men": "Men",
+      "kids": "Kids",
+      "shoesAndBags": "Shoes & bags"
+    },
+    "search": "Search for brand, item, category…",
+    "actions": {
+      "wishlist": "Wishlist",
+      "messages": "Messages",
+      "profile": "Profile",
+      "sell": "Sell",
+      "menu": "Menu",
+      "closeMenu": "Close menu"
+    }
+  },
+  "theme": {
+    "toLight": "Switch to light theme",
+    "toDark": "Switch to dark theme"
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "sr": "Srpski",
+    "ru": "Русский"
+  }
+}

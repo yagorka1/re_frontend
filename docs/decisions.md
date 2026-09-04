@@ -50,6 +50,19 @@ wrong here — prerendering a personalized page bakes one user's data into share
 plain global SCSS. Cost: two global stylesheets in `angular.json` instead of one, and a token
 added to `@theme` must go in `tailwind.css`, never `styles.scss`.
 
+**Transloco for i18n, translations loaded inline instead of over HTTP.** The app ships three
+languages (English, Serbian, Russian) and switches at runtime, so `@angular/localize`'s
+build-time approach doesn't fit; Transloco's signal-based API matches the rest of the state
+model. Its `TranslocoHttpLoader` fetches `/i18n/<lang>.json` at runtime, which needs an
+absolute URL during SSR — a custom `TranslocoLoader` that dynamically `import()`s the JSON
+instead sidesteps that entirely and behaves identically on the server and in the browser.
+Cost: every language ships in the initial bundle as a lazy chunk rather than being fetched
+on demand, and a fourth language means another entry in `transloco.config.ts`'s loader map,
+not just a new asset file. `LanguageService` persists the choice to `localStorage`, mirroring
+`ThemeService`; there is no server-side detection (cookie or `Accept-Language`) yet, so SSR
+always renders the `en` default and a returning visitor's stored language applies after
+hydration.
+
 **Dark mode is a manual class toggle, defaulting to light.** A `@custom-variant dark` keyed
 off `.dark` on `<html>` lets users opt into dark mode explicitly; `ThemeService` persists the
 choice to `localStorage` and an inline script in `index.html` applies it before first paint to

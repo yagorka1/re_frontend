@@ -1,0 +1,35 @@
+<div class="relative">
+  <button
+    type="button"
+    appButton="chip"
+    [attr.aria-label]="'language.label' | transloco"
+    aria-haspopup="listbox"
+    [attr.aria-expanded]="isOpen()"
+    (click)="toggle()"
+  >
+    <app-icon name="globe" />
+    <span class="uppercase">{{ languageService.activeLang() }}</span>
+  </button>
+
+  @if (isOpen()) {
+    <ul
+      class="border-border bg-surface absolute right-0 top-[calc(100%+8px)] z-50 min-w-36 overflow-hidden rounded-card border py-1 shadow-lg"
+      role="listbox"
+    >
+      @for (language of languageService.languages; track language.id) {
+        <li>
+          <button
+            type="button"
+            role="option"
+            class="text-ink hover:bg-surface-muted flex w-full cursor-pointer items-center justify-between px-3 py-2 text-left text-sm font-medium"
+            [attr.aria-selected]="language.id === languageService.activeLang()"
+            [class.text-brand]="language.id === languageService.activeLang()"
+            (click)="select(language.id)"
+          >
+            {{ language.label }}
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</div>
