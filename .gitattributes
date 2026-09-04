@@ -1,0 +1,3 @@
+# Prettier writes LF; keep working trees LF on every platform so that
+# `prettier --check` does not fail after a clone on Windows.
+* text=auto eol=lf

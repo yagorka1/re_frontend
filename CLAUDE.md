@@ -14,8 +14,7 @@ This repository is still an Angular CLI scaffold. There is no domain code yet:
 `app.routes.ts` is empty and `app.html` contains only `<router-outlet />`. Everything below
 describes the target conventions, not what is already implemented.
 
-Known issue: `src/app/app.spec.ts` asserts a `Hello, re_frontend` heading that the template
-does not render, so `npm test` fails. Fix it alongside the first real page.
+The toolchain, however, is real: ESLint, Prettier, git hooks and CI all run and pass.
 
 ## Related repositories
 
@@ -23,17 +22,20 @@ does not render, so `npm test` fails. Fix it alongside the first real page.
 
 ## Stack
 
-| Area         | Choice                                                                  |
-| ------------ | ----------------------------------------------------------------------- |
-| Framework    | Angular 22, standalone, **zoneless** (`zone.js` is not installed)       |
-| Rendering    | SSR + hydration (`@angular/ssr`, Express host in `src/server.ts`)       |
-| Styling      | Tailwind CSS + in-house components, no component library                |
-| State        | Signals + services; NgRx SignalStore only where a service stops scaling |
-| API          | REST, typed client generated from the `re_backend` OpenAPI schema       |
-| Structure    | `core` / `shared` / `features`, lazily routed features                  |
-| Search state | Filters, sorting and paging live in URL query params                    |
-| Tests        | Vitest (`@angular/build:unit-test`)                                     |
-| Formatting   | Prettier: `printWidth 100`, single quotes, 2-space indent               |
+| Area         | Choice                                                                    |
+| ------------ | ------------------------------------------------------------------------- |
+| Framework    | Angular 22, standalone, **zoneless** (`zone.js` is not installed)         |
+| Rendering    | SSR + hydration (`@angular/ssr`, Express host in `src/server.ts`)         |
+| Styling      | Tailwind CSS + in-house components, no component library                  |
+| State        | Signals + services; NgRx SignalStore only where a service stops scaling   |
+| API          | REST, typed client generated from the `re_backend` OpenAPI schema         |
+| Structure    | `core` / `shared` / `features`, lazily routed features                    |
+| Search state | Filters, sorting and paging live in URL query params                      |
+| Tests        | Vitest (`@angular/build:unit-test`)                                       |
+| Formatting   | Prettier: `printWidth 100`, single quotes, 2-space indent                 |
+| Linting      | `angular-eslint` + `typescript-eslint`, flat config in `eslint.config.js` |
+| Git hooks    | husky + lint-staged; commitlint with Conventional Commits                 |
+| CI           | GitHub Actions, `.github/workflows/ci.yml`, on pull requests and `main`   |
 
 The reasoning and the cost of each choice is in [docs/decisions.md](docs/decisions.md).
 
@@ -43,13 +45,35 @@ The reasoning and the cost of each choice is in [docs/decisions.md](docs/decisio
 npm start          # dev server on http://localhost:4200
 npm run build      # production build into dist/ (SSR, outputMode: server)
 npm run watch      # development build in watch mode
-npm test           # Vitest
+npm test           # Vitest (watch mode in a TTY)
+npm run test:ci    # Vitest, single run
+npm run lint       # ng lint; `npm run lint:fix` to autofix
+npm run format     # prettier --write .; `npm run format:check` to verify only
+npm run typecheck  # tsc --noEmit over app and spec projects
 npm run serve:ssr:re_frontend   # run the built SSR server (PORT, defaults to 4000)
-npx prettier --write .
 npx ng generate component features/<feature>/ui/<name>
 ```
 
 Full stack locally: `npm run start:dev` in `../re_backend`, plus `npm start` here.
+
+## Quality gates
+
+Git hooks are installed by `npm install` (husky's `prepare` script):
+
+| Hook         | Runs                                                   |
+| ------------ | ------------------------------------------------------ |
+| `pre-commit` | lint-staged: ESLint `--fix` + Prettier on staged files |
+| `commit-msg` | commitlint — Conventional Commits                      |
+| `pre-push`   | `npm run typecheck` and `npm run test:ci`              |
+
+CI additionally runs `format:check`, project-wide `lint` and `build`, and re-checks commit
+messages plus the pull request title (squash merges use the title as the commit message).
+
+Commit messages are `type(scope): subject` — `feat`, `fix`, `refactor`, `docs`, `test`,
+`chore`, `build`, `ci`, `perf`, `style`, `revert`. The scope is kebab-case, usually the feature
+folder: `feat(catalog): add facet filters`.
+
+Do not bypass hooks with `--no-verify`; CI runs the same checks and will fail anyway.
 
 ## Angular 22 conventions
 

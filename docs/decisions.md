@@ -25,8 +25,21 @@ that. Cost: query-param encoding for arrays and ranges is real work, and every f
 is a navigation (use `replaceUrl` for sliders or the history stack fills up).
 
 **One-way imports: `features/*` → `shared`/`core`/`api`, never feature → feature.** Nothing
-enforces this. The first cross-feature import will look harmless and the boundary will erode;
-if that starts, add an ESLint boundaries rule.
+enforces this yet, but ESLint is now wired up (`eslint.config.js`), so the fix when the first
+cross-feature import appears is a boundaries rule rather than a new toolchain.
+
+**Quality gates are split by speed: hooks locally, the full suite in CI.** `pre-commit` only
+touches staged files (ESLint `--fix` + Prettier via lint-staged), `commit-msg` runs commitlint,
+`pre-push` runs `typecheck` and the tests. Everything slower — `format:check`, project-wide
+lint, the SSR build — lives in `.github/workflows/ci.yml`. Cost: a hook that grows past a
+second or two will get bypassed with `--no-verify`, so new checks default to CI; and CI can
+still go red on something the hooks let through (template type errors, budget overruns),
+because `tsc --noEmit` does not type-check Angular templates — only the build does.
+
+**Conventional Commits, enforced on messages and on pull request titles.** Squash merges take
+the PR title as the commit message, so checking only the commits would leave the history that
+actually lands unchecked. Cost: `--no-verify` and the GitHub web editor both bypass the local
+hook, which is why CI re-checks both.
 
 **SSR render mode is chosen per route, not defaulted.** The scaffold prerenders `**`, which is
 wrong here — prerendering a personalized page bakes one user's data into shared HTML.
