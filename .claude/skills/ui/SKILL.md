@@ -30,6 +30,20 @@ Baseline set for this marketplace:
 - **Spacing**: Tailwind's scale only, no intermediate values.
 - Dark mode is not supported yet — do not add `dark:` variants until it is requested.
 
+The catalog mockups in `docs/design/` are the visual source for the palette. They use raw
+CSS variables; the token each one becomes:
+
+| Mockup variable                        | Token                             |
+| -------------------------------------- | --------------------------------- |
+| `--terracotta` / `--terracotta-deep`   | `brand` / `brand-strong`          |
+| `--bg` / `--surface`                   | `surface-muted` / `surface`       |
+| `--ink` / `--ink-soft` / `--ink-faint` | `ink` / `ink-muted` / `ink-faint` |
+| `--line`                               | `border`                          |
+| `--sage` / `--sage-tint`               | `success` / `success-muted`       |
+
+Type is Manrope everywhere, Instrument Serif italic for the wordmark only. Colors are in
+`oklch()` — keep them there rather than converting to hex.
+
 ## Component patterns
 
 **Item card** — the most reused component in the app; it belongs in `shared/ui`. 3:4 photo,

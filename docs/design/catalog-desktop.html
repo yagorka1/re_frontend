@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Re&amp;Re — Catalog (desktop, 1440)</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap">
+  <style>
+    :root{
+      --bg: oklch(97% 0.012 75);
+      --surface: oklch(99% 0.004 75);
+      --ink: oklch(22% 0.02 55);
+      --ink-soft: oklch(46% 0.02 55);
+      --ink-faint: oklch(60% 0.014 60);
+      --line: oklch(90% 0.014 70);
+      --terracotta: oklch(64% 0.15 40);
+      --terracotta-deep: oklch(52% 0.15 40);
+      --terracotta-tint: oklch(94% 0.03 40);
+      --sage: oklch(56% 0.09 150);
+      --sage-tint: oklch(93% 0.03 150);
+    }
+    *{ box-sizing: border-box; }
+    body{ margin: 0; font-family: 'Manrope', system-ui, sans-serif; background: var(--bg); color: var(--ink); }
+    a{ color: var(--terracotta); text-decoration: none; }
+    a:hover{ color: var(--terracotta-deep); }
+    .chip{ display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; white-space: nowrap; border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft); }
+    .chip.active{ background: var(--ink); color: var(--surface); border-color: var(--ink); }
+    .filter-pill{ display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; white-space: nowrap; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+    .icon-btn{ display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft); flex-shrink: 0; }
+    .badge{ position: absolute; bottom: 10px; left: 10px; padding: 4px 9px; border-radius: 6px; background: rgba(255,255,255,0.92); font-size: 11px; font-weight: 700; color: var(--ink-soft); }
+    .badge.new{ background: var(--sage-tint); color: var(--sage); }
+  </style>
+</head>
+<body>
+
+<div style="width: 1440px; min-height: 1780px; background: var(--bg); display: flex; flex-direction: column;">
+
+  <!-- Header -->
+  <header style="display: flex; align-items: center; gap: 36px; padding: 18px 48px; border-bottom: 1px solid var(--line); background: var(--surface);">
+    <div style="font-family: 'Instrument Serif', serif; font-style: italic; font-size: 30px; color: var(--ink); flex-shrink: 0;">Re<span style="color: var(--terracotta);">&amp;</span>Re</div>
+
+    <nav style="display: flex; align-items: center; gap: 26px; flex-shrink: 0;">
+      <a href="#" style="font-size: 14px; font-weight: 700; color: var(--ink);">Women</a>
+      <a href="#" style="font-size: 14px; font-weight: 700; color: var(--ink-soft);">Men</a>
+      <a href="#" style="font-size: 14px; font-weight: 700; color: var(--ink-soft);">Kids</a>
+      <a href="#" style="font-size: 14px; font-weight: 700; color: var(--ink-soft);">Shoes &amp; bags</a>
+    </nav>
+
+    <div style="flex-grow: 1; display: flex; align-items: center; gap: 10px; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 11px 14px; max-width: 440px;">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--ink-faint); flex-shrink: 0;"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span style="font-size: 14px; color: var(--ink-faint);">Search for brand, item, category&#8230;</span>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 16px; flex-shrink: 0; margin-left: auto;">
+      <button class="icon-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21.3l7.6-7.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"/></svg>
+      </button>
+      <button class="icon-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.4 8.4 8.3 8.3 0 0 1-3.8-.9L3 21l1.9-5.8a8.3 8.3 0 0 1-.9-3.7A8.4 8.4 0 0 1 12.5 3a8.5 8.5 0 0 1 8.5 8.5z"/></svg>
+      </button>
+      <button style="display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: var(--sage-tint); color: var(--sage); border: 1px solid var(--line); flex-shrink: 0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </button>
+      <button style="display: flex; align-items: center; gap: 8px; padding: 11px 20px; border-radius: 10px; border: none; background: var(--terracotta); color: white; font-size: 14px; font-weight: 700; flex-shrink: 0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Sell
+      </button>
+    </div>
+  </header>
+
+  <!-- Category chips -->
+  <div style="display: flex; align-items: center; gap: 10px; padding: 18px 48px 0;">
+    <span class="chip active">All</span>
+    <span class="chip">Outerwear</span>
+    <span class="chip">Dresses</span>
+    <span class="chip">Tops</span>
+    <span class="chip">Denim</span>
+    <span class="chip">Knitwear</span>
+    <span class="chip">Activewear</span>
+    <span class="chip">Accessories</span>
+    <span class="chip">Shoes &amp; bags</span>
+  </div>
+
+  <!-- Filter bar -->
+  <div style="display: flex; align-items: center; gap: 10px; padding: 16px 48px 20px; border-bottom: 1px solid var(--line);">
+    <span class="filter-pill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><circle cx="9" cy="6" r="2" fill="var(--surface)"/><line x1="4" y1="12" x2="20" y2="12"/><circle cx="15" cy="12" r="2" fill="var(--surface)"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="7" cy="18" r="2" fill="var(--surface)"/></svg>
+      Filters
+    </span>
+    <span class="filter-pill">Category <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    <span class="filter-pill">Size <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    <span class="filter-pill">Brand <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    <span class="filter-pill">Price <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    <span class="filter-pill">Condition <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    <span class="filter-pill">City <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+    <div style="flex-grow: 1;"></div>
+    <span style="font-size: 13px; color: var(--ink-faint); margin-right: 4px;">1,248 items</span>
+    <span class="filter-pill">Sort: Newest <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+  </div>
+
+  <!-- Product grid -->
+  <div style="padding: 32px 48px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px 22px;">
+
+    <article style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="position: relative; aspect-ratio: 3/4; border-radius: 12px; background: oklch(93% 0.03 40); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="oklch(55% 0.05 40)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"><path d="M12 3a1.4 1.4 0 1 1 1.4 1.4"/><path d="M12 4.4v2.1"/><path d="M12 6.5 4 12.3a2 2 0 0 0 1 3.7h14a2 2 0 0 0 1-3.7L12 6.5Z"/><line x1="6" y1="19" x2="18" y2="19"/></svg>
+        <button style="position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.88); border: none; display: flex; align-items: center; justify-content: center; color: var(--ink-soft);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21.3l7.6-7.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"/></svg></button>
+        <span class="badge">Very good</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px;"><span style="font-size: 14px; font-weight: 700;">Zara</span><span style="font-size: 14px; font-weight: 800; color: var(--terracotta-deep);">4.200 RSD</span></div>
+        <span style="font-size: 13px; color: var(--ink-soft);">Wool blend coat &middot; M</span>
+        <span style="font-size: 12px; color: var(--ink-faint);">Belgrade</span>
+      </div>
+    </article>
+
+    <article style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="position: relative; aspect-ratio: 3/4; border-radius: 12px; background: oklch(93% 0.03 150); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="oklch(50% 0.05 150)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"><path d="M12 3a1.4 1.4 0 1 1 1.4 1.4"/><path d="M12 4.4v2.1"/><path d="M12 6.5 4 12.3a2 2 0 0 0 1 3.7h14a2 2 0 0 0 1-3.7L12 6.5Z"/><line x1="6" y1="19" x2="18" y2="19"/></svg>
+        <button style="position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.88); border: none; display: flex; align-items: center; justify-content: center; color: var(--ink-soft);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21.3l7.6-7.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"/></svg></button>
+        <span class="badge">Good</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px;"><span style="font-size: 14px; font-weight: 700;">Nike</span><span style="font-size: 14px; font-weight: 800; color: var(--terracotta-deep);">2.800 RSD</span></div>
+        <span style="font-size: 13px; color: var(--ink-soft);">Oversized hoodie &middot; L</span>
+        <span style="font-size: 12px; color: var(--ink-faint);">Novi Sad</span>
+      </div>
+    </article>
+
+    <article style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="position: relative; aspect-ratio: 3/4; border-radius: 12px; background: oklch(93% 0.025 90); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="oklch(55% 0.05 90)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"><path d="M12 3a1.4 1.4 0 1 1 1.4 1.4"/><path d="M12 4.4v2.1"/><path d="M12 6.5 4 12.3a2 2 0 0 0 1 3.7h14a2 2 0 0 0 1-3.7L12 6.5Z"/><line x1="6" y1="19" x2="18" y2="19"/></svg>
+        <button style="position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.88); border: none; display: flex; align-items: center; justify-content: center; color: var(--ink-soft);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21.3l7.6-7.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"/></svg></button>
+        <span class="badge new">New with tags</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px;"><span style="font-size: 14px; font-weight: 700;">Mango</span><span style="font-size: 14px; font-weight: 800; color: var(--terracotta-deep);">1.900 RSD</span></div>
+        <span style="font-size: 13px; color: var(--ink-soft);">Floral midi dress &middot; S</span>
+        <span style="font-size: 12px; color: var(--ink-faint);">Belgrade</span>
+      </div>
+    </article>
+
+    <article style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="position: relative; aspect-ratio: 3/4; border-radius: 12px; background: oklch(92% 0.02 260); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="oklch(55% 0.05 260)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"><path d="M12 3a1.4 1.4 0 1 1 1.4 1.4"/><path d="M12 4.4v2.1"/><path d="M12 6.5 4 12.3a2 2 0 0 0 1 3.7h14a2 2 0 0 0 1-3.7L12 6.5Z"/><line x1="6" y1="19" x2="18" y2="19"/></svg>
+        <button style="position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.88); border: none; display: flex; align-items: center; justify-content: center; color: var(--ink-soft);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21.3l7.6-7.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"/></svg></button>
+        <span class="badge">Good</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px;"><span style="font-size: 14px; font-weight: 700;">Levi&#39;s</span><span style="font-size: 14px; font-weight: 800; color: var(--terracotta-deep);">3.100 RSD</span></div>
+        <span style="font-size: 13px; color: var(--ink-soft);">501 straight jeans &middot; 32</span>
+        <span style="font-size: 12px; color: var(--ink-faint);">Ni&#353;</span>
+      </div>
+    </article>
+
+    <article style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="position: relative; aspect-ratio: 3/4; border-radius: 12px; background: oklch(92% 0.03 20); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="oklch(55% 0.06 20)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"><path d="M12 3a1.4 1.4 0 1 1 1.4 1.4"/><path d="M12 4.4v2.1"/><path d="M12 6.5 4 12.3a2 2 0 0 0 1 3.7h14a2 2 0 0 0 1-3.7L12 6.5Z"/><line x1="6" y1="19" x2="18" y2="19"/></svg>
+        <button style="position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.88); border: none; display: flex; align-items: center; justify-content: center; color: var(--ink-soft);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21.3l7.6-7.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"/></svg></button>
+        <span class="badge">Excellent</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px;"><span style="font-size: 14px; font-weight: 700;">H&amp;M</span><span style="font-size: 14px; font-weight: 800; color: var(--terracotta-deep);">1.500 RSD</span></div>
+        <span style="font-size: 13px; color: var(--ink-soft);">Ribbed knit sweater &middot; M</span>
+        <span style="font-size: 12px; color: var(--ink-faint);">Belgrade</span>
+      </div>
+    </article>
+
+    <article style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="position: relative; aspect-ratio: 3/4; border-radius: 12px; background: oklch(93% 0.015 0); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="oklch(50% 0.02 0)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"><path d="M12 3a1.4 1.4 0 1 1 1.4 1.4"/><path d="M12 4.4v2.1"/><path d="M12 6.5 4 12.3a2 2 0 0 0 1 3.7h14a2 2 0 0 0 1-3.7L12 6.5Z"/><line x1="6" y1="19" x2="18" y2="19"/></svg>
+        <button style="position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.88); border: none; display: flex; align-items: center; justify-content: center; color: var(--ink-soft);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21.3l7.6-7.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"/></svg></button>
+        <span class="badge">Very good</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px;"><span style="font-size: 14px; font-weight: 700;">COS</span><span style="font-size: 14px; font-weight: 800; color: var(--terracotta-deep);">2.200 RSD</span></div>
+        <span style="font-size: 13px; color: var(--ink-soft);">Linen relaxed shirt &middot; L</span>
+        <span style="font-size: 12px; color: var(--ink-faint);">Novi Sad</span>
+      </div>
+    </article>
+
+    <article style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="position: relative; aspect-ratio: 3/4; border-radius: 12px; background: oklch(93% 0.03 40); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="oklch(55% 0.05 40)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"><path d="M12 3a1.4 1.4 0 1 1 1.4 1.4"/><path d="M12 4.4v2.1"/><path d="M12 6.5 4 12.3a2 2 0 0 0 1 3.7h14a2 2 0 0 0 1-3.7L12 6.5Z"/><line x1="6" y1="19" x2="18" y2="19"/></svg>
+        <button style="position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.88); border: none; display: flex; align-items: center; justify-content: center; color: var(--ink-soft);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21.3l7.6-7.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"/></svg></button>
+        <span class="badge">Good</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px;"><span style="font-size: 14px; font-weight: 700;">Adidas</span><span style="font-size: 14px; font-weight: 800; color: var(--terracotta-deep);">2.600 RSD</span></div>
+        <span style="font-size: 13px; color: var(--ink-soft);">Track jacket &middot; M</span>
+        <span style="font-size: 12px; color: var(--ink-faint);">Belgrade</span>
+      </div>
+    </article>
+
+    <article style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="position: relative; aspect-ratio: 3/4; border-radius: 12px; background: oklch(93% 0.03 150); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="oklch(50% 0.05 150)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"><path d="M12 3a1.4 1.4 0 1 1 1.4 1.4"/><path d="M12 4.4v2.1"/><path d="M12 6.5 4 12.3a2 2 0 0 0 1 3.7h14a2 2 0 0 0 1-3.7L12 6.5Z"/><line x1="6" y1="19" x2="18" y2="19"/></svg>
+        <button style="position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.88); border: none; display: flex; align-items: center; justify-content: center; color: var(--ink-soft);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21.3l7.6-7.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"/></svg></button>
+        <span class="badge">Excellent</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px;"><span style="font-size: 14px; font-weight: 700;">Massimo Dutti</span><span style="font-size: 14px; font-weight: 800; color: var(--terracotta-deep);">5.200 RSD</span></div>
+        <span style="font-size: 13px; color: var(--ink-soft);">Tailored blazer &middot; 40</span>
+        <span style="font-size: 12px; color: var(--ink-faint);">Belgrade</span>
+      </div>
+    </article>
+
+    <article style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="position: relative; aspect-ratio: 3/4; border-radius: 12px; background: oklch(93% 0.025 90); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="oklch(55% 0.05 90)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"><path d="M12 3a1.4 1.4 0 1 1 1.4 1.4"/><path d="M12 4.4v2.1"/><path d="M12 6.5 4 12.3a2 2 0 0 0 1 3.7h14a2 2 0 0 0 1-3.7L12 6.5Z"/><line x1="6" y1="19" x2="18" y2="19"/></svg>
+        <button style="position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.88); border: none; display: flex; align-items: center; justify-content: center; color: var(--ink-soft);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21.3l7.6-7.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"/></svg></button>
+        <span class="badge">Fair</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px;"><span style="font-size: 14px; font-weight: 700;">Levi&#39;s</span><span style="font-size: 14px; font-weight: 800; color: var(--terracotta-deep);">4.800 RSD</span></div>
+        <span style="font-size: 13px; color: var(--ink-soft);">Vintage trucker jacket &middot; M</span>
+        <span style="font-size: 12px; color: var(--ink-faint);">Kragujevac</span>
+      </div>
+    </article>
+
+    <article style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="position: relative; aspect-ratio: 3/4; border-radius: 12px; background: oklch(92% 0.02 260); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="oklch(55% 0.05 260)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"><path d="M12 3a1.4 1.4 0 1 1 1.4 1.4"/><path d="M12 4.4v2.1"/><path d="M12 6.5 4 12.3a2 2 0 0 0 1 3.7h14a2 2 0 0 0 1-3.7L12 6.5Z"/><line x1="6" y1="19" x2="18" y2="19"/></svg>
+        <button style="position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.88); border: none; display: flex; align-items: center; justify-content: center; color: var(--ink-soft);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21.3l7.6-7.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"/></svg></button>
+        <span class="badge">Good</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px;"><span style="font-size: 14px; font-weight: 700;">Zara</span><span style="font-size: 14px; font-weight: 800; color: var(--terracotta-deep);">1.800 RSD</span></div>
+        <span style="font-size: 13px; color: var(--ink-soft);">Pleated trousers &middot; 38</span>
+        <span style="font-size: 12px; color: var(--ink-faint);">Novi Sad</span>
+      </div>
+    </article>
+
+    <article style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="position: relative; aspect-ratio: 3/4; border-radius: 12px; background: oklch(92% 0.03 20); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="oklch(55% 0.06 20)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"><path d="M12 3a1.4 1.4 0 1 1 1.4 1.4"/><path d="M12 4.4v2.1"/><path d="M12 6.5 4 12.3a2 2 0 0 0 1 3.7h14a2 2 0 0 0 1-3.7L12 6.5Z"/><line x1="6" y1="19" x2="18" y2="19"/></svg>
+        <button style="position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.88); border: none; display: flex; align-items: center; justify-content: center; color: var(--ink-soft);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21.3l7.6-7.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"/></svg></button>
+        <span class="badge">Very good</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px;"><span style="font-size: 14px; font-weight: 700;">Uniqlo</span><span style="font-size: 14px; font-weight: 800; color: var(--terracotta-deep);">2.400 RSD</span></div>
+        <span style="font-size: 13px; color: var(--ink-soft);">Puffer vest &middot; S</span>
+        <span style="font-size: 12px; color: var(--ink-faint);">Belgrade</span>
+      </div>
+    </article>
+
+    <article style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="position: relative; aspect-ratio: 3/4; border-radius: 12px; background: oklch(93% 0.015 0); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="oklch(50% 0.02 0)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"><path d="M12 3a1.4 1.4 0 1 1 1.4 1.4"/><path d="M12 4.4v2.1"/><path d="M12 6.5 4 12.3a2 2 0 0 0 1 3.7h14a2 2 0 0 0 1-3.7L12 6.5Z"/><line x1="6" y1="19" x2="18" y2="19"/></svg>
+        <button style="position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.88); border: none; display: flex; align-items: center; justify-content: center; color: var(--ink-soft);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21.3l7.6-7.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"/></svg></button>
+        <span class="badge">Good</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px;"><span style="font-size: 14px; font-weight: 700;">Reserved</span><span style="font-size: 14px; font-weight: 800; color: var(--terracotta-deep);">1.400 RSD</span></div>
+        <span style="font-size: 13px; color: var(--ink-soft);">Denim skirt &middot; 36</span>
+        <span style="font-size: 12px; color: var(--ink-faint);">Ni&#353;</span>
+      </div>
+    </article>
+
+    <article style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="position: relative; aspect-ratio: 3/4; border-radius: 12px; background: oklch(93% 0.03 40); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="oklch(55% 0.05 40)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"><path d="M12 3a1.4 1.4 0 1 1 1.4 1.4"/><path d="M12 4.4v2.1"/><path d="M12 6.5 4 12.3a2 2 0 0 0 1 3.7h14a2 2 0 0 0 1-3.7L12 6.5Z"/><line x1="6" y1="19" x2="18" y2="19"/></svg>
+        <button style="position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.88); border: none; display: flex; align-items: center; justify-content: center; color: var(--ink-soft);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21.3l7.6-7.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"/></svg></button>
+        <span class="badge">Excellent</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px;"><span style="font-size: 14px; font-weight: 700;">Tommy Hilfiger</span><span style="font-size: 14px; font-weight: 800; color: var(--terracotta-deep);">1.700 RSD</span></div>
+        <span style="font-size: 13px; color: var(--ink-soft);">Polo shirt &middot; L</span>
+        <span style="font-size: 12px; color: var(--ink-faint);">Belgrade</span>
+      </div>
+    </article>
+
+    <article style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="position: relative; aspect-ratio: 3/4; border-radius: 12px; background: oklch(93% 0.03 150); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="oklch(50% 0.05 150)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"><path d="M12 3a1.4 1.4 0 1 1 1.4 1.4"/><path d="M12 4.4v2.1"/><path d="M12 6.5 4 12.3a2 2 0 0 0 1 3.7h14a2 2 0 0 0 1-3.7L12 6.5Z"/><line x1="6" y1="19" x2="18" y2="19"/></svg>
+        <button style="position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.88); border: none; display: flex; align-items: center; justify-content: center; color: var(--ink-soft);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21.3l7.6-7.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"/></svg></button>
+        <span class="badge new">New with tags</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px;"><span style="font-size: 14px; font-weight: 700;">&amp; Other Stories</span><span style="font-size: 14px; font-weight: 800; color: var(--terracotta-deep);">2.900 RSD</span></div>
+        <span style="font-size: 13px; color: var(--ink-soft);">Silk blouse &middot; S</span>
+        <span style="font-size: 12px; color: var(--ink-faint);">Novi Sad</span>
+      </div>
+    </article>
+
+    <article style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="position: relative; aspect-ratio: 3/4; border-radius: 12px; background: oklch(93% 0.025 90); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="oklch(55% 0.05 90)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"><path d="M12 3a1.4 1.4 0 1 1 1.4 1.4"/><path d="M12 4.4v2.1"/><path d="M12 6.5 4 12.3a2 2 0 0 0 1 3.7h14a2 2 0 0 0 1-3.7L12 6.5Z"/><line x1="6" y1="19" x2="18" y2="19"/></svg>
+        <button style="position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.88); border: none; display: flex; align-items: center; justify-content: center; color: var(--ink-soft);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21.3l7.6-7.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z"/></svg></button>
+        <span class="badge">Good</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px;"><span style="font-size: 14px; font-weight: 700;">Bershka</span><span style="font-size: 14px; font-weight: 800; color: var(--terracotta-deep);">1.600 RSD</span></div>
+        <span style="font-size: 13px; color: var(--ink-soft);">Cargo pants &middot; M</span>
+        <span style="font-size: 12px; color: var(--ink-faint);">Belgrade</span>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- Footer -->
+  <footer style="margin-top: auto; padding: 30px 48px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center;">
+    <div style="font-size: 13px; color: var(--ink-faint);">&copy; 2026 Re&amp;Re &mdash; secondhand fashion, Serbia</div>
+    <div style="display: flex; gap: 24px;">
+      <a href="#" style="font-size: 13px; color: var(--ink-soft); font-weight: 600;">About</a>
+      <a href="#" style="font-size: 13px; color: var(--ink-soft); font-weight: 600;">Help</a>
+      <a href="#" style="font-size: 13px; color: var(--ink-soft); font-weight: 600;">Terms</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
+
