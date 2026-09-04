@@ -23,10 +23,7 @@
       "PowerShell(git log:*)",
       "PowerShell(git show:*)"
     ],
-    "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)"
-    ]
+    "deny": ["Read(./.env)", "Read(./.env.*)"]
   },
   "enableAllProjectMcpServers": false
 }
