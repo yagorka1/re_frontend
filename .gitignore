@@ -39,6 +39,9 @@ testem.log
 /typings
 __screenshots__/
 
+# Claude Code (личные настройки не коммитим, общие — да)
+.claude/settings.local.json
+
 # System files
 .DS_Store
 Thumbs.db
