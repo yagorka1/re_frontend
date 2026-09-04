@@ -6,6 +6,18 @@
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <script>
+      // Runs before first paint so the theme class is already correct when styles load —
+      // ThemeService (src/app/core/theme/theme.service.ts) keeps this in sync afterwards.
+      // Default is light; dark only applies if the user explicitly picked it before.
+      (function () {
+        try {
+          if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <app-root></app-root>

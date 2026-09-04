@@ -1,0 +1,57 @@
+@import 'tailwindcss';
+
+/* Sass can't resolve a bare `@import "tailwindcss"`, so the Tailwind entry point stays a
+   plain .css file (referenced directly in angular.json) instead of living in styles.scss. */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Instrument Serif', serif;
+
+  --color-brand: oklch(64% 0.15 40);
+  --color-brand-strong: oklch(52% 0.15 40);
+  --color-brand-muted: oklch(94% 0.03 40);
+
+  --color-surface: oklch(99% 0.004 75);
+  --color-surface-muted: oklch(97% 0.012 75);
+
+  --color-ink: oklch(22% 0.02 55);
+  --color-ink-muted: oklch(46% 0.02 55);
+  --color-ink-faint: oklch(60% 0.014 60);
+
+  --color-border: oklch(90% 0.014 70);
+
+  --color-success: oklch(56% 0.09 150);
+  --color-success-muted: oklch(93% 0.03 150);
+  --color-warning: oklch(62% 0.14 80);
+  --color-warning-muted: oklch(94% 0.05 80);
+  --color-danger: oklch(58% 0.19 25);
+  --color-danger-muted: oklch(94% 0.05 25);
+
+  --radius-card: 0.75rem;
+}
+
+/* Dark theme overrides the same custom properties `@theme` declared above; every utility
+   that reads them (bg-surface, text-ink, ...) repaints without new class variants. */
+.dark {
+  --color-brand: oklch(68% 0.15 40);
+  --color-brand-strong: oklch(76% 0.13 40);
+  --color-brand-muted: oklch(30% 0.05 40);
+
+  --color-surface: oklch(24% 0.008 75);
+  --color-surface-muted: oklch(19% 0.008 75);
+
+  --color-ink: oklch(96% 0.004 75);
+  --color-ink-muted: oklch(78% 0.008 75);
+  --color-ink-faint: oklch(60% 0.01 75);
+
+  --color-border: oklch(32% 0.01 75);
+
+  --color-success: oklch(72% 0.1 150);
+  --color-success-muted: oklch(28% 0.04 150);
+  --color-warning: oklch(74% 0.13 80);
+  --color-warning-muted: oklch(30% 0.05 80);
+  --color-danger: oklch(68% 0.17 25);
+  --color-danger-muted: oklch(30% 0.06 25);
+}

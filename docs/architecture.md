@@ -49,6 +49,10 @@ Dependency rules, in one direction only:
 
 Nothing enforces these rules — they hold by convention until an ESLint boundaries rule exists.
 
+Imports outside a file's own directory use the `@/*` path alias (mapped to `src/app/*`)
+instead of parent-relative `../` paths; ESLint's `no-restricted-imports` rejects `../`.
+Same- or child-directory imports (`./foo`) stay relative.
+
 ## Data flow
 
 1. A route activates a page component in `features/<f>/pages/`.

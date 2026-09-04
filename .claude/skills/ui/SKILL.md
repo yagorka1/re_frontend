@@ -10,25 +10,39 @@ in-house primitives in `src/app/shared/ui/`.
 
 ## If Tailwind is not installed yet
 
-Check `package.json` for `tailwindcss` and `src/styles.scss` for `@use "tailwindcss"`. If
-missing, install Tailwind v4 and import it in `src/styles.scss`. In v4 configuration lives in
-CSS via `@theme` — there is no `tailwind.config.js`. Tell the user before adding the
-dependency.
+Check `package.json` for `tailwindcss`. If missing, install Tailwind v4 plus
+`@tailwindcss/postcss` and `postcss`, add a root `.postcssrc.json` with the
+`@tailwindcss/postcss` plugin, and give it a plain-CSS entry point (`src/tailwind.css` with
+`@import 'tailwindcss';`) listed in `angular.json`'s `styles` array alongside
+`src/styles.scss`. Tailwind's entry point must stay a `.css` file — Sass tries to resolve a
+bare `@import "tailwindcss"` as a partial and fails, so it can't live in `styles.scss`. In v4
+configuration lives in CSS via `@theme` — there is no `tailwind.config.js`. Tell the user
+before adding the dependency.
 
 ## Tokens
 
-Tokens are declared once in `src/styles.scss` under `@theme` and used only as classes.
-Arbitrary values (`text-[#1a1a1a]`, `p-[13px]`) mean a token is missing — add the token
-instead of the one-off value.
+Tokens (and dark-mode overrides) are declared once in `src/tailwind.css` under `@theme` —
+that's the only file Tailwind's PostCSS plugin scans for it — and used only as classes.
+`src/styles.scss` is for plain global CSS (e.g. `body` defaults) that reads those tokens via
+`var(--color-*)`, not for declaring them. Arbitrary values (`text-[#1a1a1a]`, `p-[13px]`) mean
+a token is missing — add the token instead of the one-off value.
 
 Baseline set for this marketplace:
 
 - **Color**: `brand` (accent, CTAs), `surface` / `surface-muted` (page and card backgrounds),
   `ink` / `ink-muted` (text), `success` (delivered), `warning` (awaiting payment), `danger`
   (dispute, cancelled). Order and listing status colors come from here and nowhere else.
-- **Radius**: one card/button radius across the whole app.
+- **Radius**: one card/button radius across the whole app (`radius-card`).
 - **Spacing**: Tailwind's scale only, no intermediate values.
-- Dark mode is not supported yet — do not add `dark:` variants until it is requested.
+- **Dark mode** is class-based (`@custom-variant dark (&:where(.dark, .dark *));` in
+  `tailwind.css`, toggled by `.dark` on `<html>`), a manual opt-in rather than
+  `prefers-color-scheme`-driven — a first visit is always light. `ThemeService`
+  (`src/app/core/theme/theme.service.ts`) owns the signal, persists the choice to
+  `localStorage`, and toggles the class; `<app-theme-toggle>` in `shared/ui` is the switcher.
+  An inline script in `src/index.html` applies a stored `dark` choice before first paint to
+  avoid a flash. Never gate a token behind `dark:` — redefine the same custom property inside
+  the `.dark { }` block in `tailwind.css` so every utility using the token repaints
+  automatically.
 
 The catalog mockups in `docs/design/` are the visual source for the palette. They use raw
 CSS variables; the token each one becomes:

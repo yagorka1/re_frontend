@@ -43,3 +43,16 @@ hook, which is why CI re-checks both.
 
 **SSR render mode is chosen per route, not defaulted.** The scaffold prerenders `**`, which is
 wrong here — prerendering a personalized page bakes one user's data into shared HTML.
+
+**Tailwind's entry point is a `.css` file, not `styles.scss`.** Sass fails to resolve a bare
+`@import "tailwindcss"`, so `src/tailwind.css` (plain CSS, `@tailwindcss/postcss` via
+`.postcssrc.json`) carries the import and the `@theme` tokens, and `src/styles.scss` stays for
+plain global SCSS. Cost: two global stylesheets in `angular.json` instead of one, and a token
+added to `@theme` must go in `tailwind.css`, never `styles.scss`.
+
+**Dark mode is a manual class toggle, defaulting to light.** A `@custom-variant dark` keyed
+off `.dark` on `<html>` lets users opt into dark mode explicitly; `ThemeService` persists the
+choice to `localStorage` and an inline script in `index.html` applies it before first paint to
+avoid a flash. No `prefers-color-scheme` detection — a first-time visitor always gets light.
+Cost: every color token needs a `.dark { }` override in `tailwind.css`, not a `dark:` utility
+per usage — a token missing its dark value silently reads the light value.

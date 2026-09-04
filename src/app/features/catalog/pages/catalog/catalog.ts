@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { CatalogFilters } from '../../ui/catalog-filters/catalog-filters';
-import { CatalogList } from '../../ui/catalog-list/catalog-list';
+import { CatalogFilters } from '@/features/catalog/ui/catalog-filters/catalog-filters';
+import { CatalogList } from '@/features/catalog/ui/catalog-list/catalog-list';
 
 @Component({
   selector: 'app-catalog-page',

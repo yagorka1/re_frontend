@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+// Global SCSS: the Tailwind entry point itself lives in src/tailwind.css (see the comment
+// there for why) and is loaded as a separate global style in angular.json.
+
+html {
+  color-scheme: light;
+
+  &.dark {
+    color-scheme: dark;
+  }
+}
+
+body {
+  background-color: var(--color-surface-muted);
+  color: var(--color-ink);
+}
