@@ -12,9 +12,9 @@ order with shipping.
 ## Status
 
 The app is a walking skeleton: `/` lazily loads `features/catalog`, wrapped in the shared
-header and footer. The components are empty placeholders — no styling, no data, no logic.
-Every other feature folder is still empty. Most of what follows describes the target
-conventions, not what is already implemented.
+header and footer. The header is built out (nav, search, theme and language switchers); the
+footer and every feature folder past the catalog's empty placeholders are still unstyled.
+Most of what follows describes the target conventions, not what is already implemented.
 
 The toolchain, however, is real: ESLint, Prettier, git hooks and CI all run and pass.
 
@@ -33,6 +33,7 @@ The toolchain, however, is real: ESLint, Prettier, git hooks and CI all run and 
 | API          | REST, typed client generated from the `re_backend` OpenAPI schema         |
 | Structure    | `core` / `shared` / `features`, lazily routed features                    |
 | Search state | Filters, sorting and paging live in URL query params                      |
+| i18n         | `@jsverse/transloco`, EN/SR/RU, inline-loaded translations (no HTTP)      |
 | Tests        | Vitest (`@angular/build:unit-test`)                                       |
 | Formatting   | Prettier: `printWidth 100`, single quotes, 2-space indent                 |
 | Linting      | `angular-eslint` + `typescript-eslint`, flat config in `eslint.config.js` |

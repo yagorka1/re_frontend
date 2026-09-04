@@ -53,6 +53,47 @@ Imports outside a file's own directory use the `@/*` path alias (mapped to `src/
 instead of parent-relative `../` paths; ESLint's `no-restricted-imports` rejects `../`.
 Same- or child-directory imports (`./foo`) stay relative.
 
+### `shared/ui` — components vs. widgets
+
+```
+shared/ui/
+  components/   # atomic, style-only primitives: input, link, icon, badge, chip...
+  widgets/      # composed from components/, own layout and behavior: header, footer,
+                # search-bar, filter-panel...
+```
+
+- `components/` holds pieces with no knowledge of layout context and no feature meaning —
+  they take primitive inputs (`value`, `variant`, `size`) and emit primitive outputs. A
+  component here must make sense standing alone, outside this app.
+- `widgets/` composes several `components/` (and possibly other `widgets/`) into something
+  with actual layout and, sometimes, wiring to `core/` (e.g. the header reading the current
+  language). Widgets may still not know about `features/`.
+- Where styling only needs to attach behavior to a native element without owning markup
+  (`Button`, `Link`), prefer a `Directive` over a wrapper `Component` — see
+  `ButtonDirective` (currently `shared/directives/button.directive.ts`, to move under
+  `components/button/` once the folder split lands). This keeps native semantics (`type`,
+  `disabled`, `href`, `aria-*`, form submission) instead of reimplementing them behind a
+  component API. Reach for a `Component` instead once the element needs its own template,
+  internal state, or (as with `Input`) integration with the forms API.
+
+This split is not applied to the existing `shared/ui/*` tree yet — `header`, `footer`,
+`icon`, `theme-toggle` and `language-switch` still sit flat. Move things into
+`components/`/`widgets/` incrementally as they're touched, rather than as one big rename.
+
+### Forms
+
+Use Angular's Signal Forms (`@angular/forms/signals`: `form()`, `schema()`, validators,
+the `[formField]` directive) for anything beyond a single uncontrolled input — search boxes
+included. Custom controls (`components/input`, a future `components/select`, ...) implement
+`FormValueControl` with a `model()`, not `ControlValueAccessor`: the two are not meant to be
+mixed on the same component, and every form in this app is signal-based, so there is no
+reactive-forms interop to support.
+
+The catalog search box is a `components/input` bound into a small `form()` in
+`features/catalog/data/`; submitting (or, for instant search, an effect on the field's
+value) writes the query into the route's query params per the search-state rule above,
+which is what the store actually reads from.
+
 ## Data flow
 
 1. A route activates a page component in `features/<f>/pages/`.

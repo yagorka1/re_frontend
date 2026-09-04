@@ -1,0 +1,58 @@
+<header class="border-border bg-surface sticky top-0 z-40 border-b">
+  <div
+    class="flex flex-wrap items-center gap-3 px-4 py-3 lg:mx-auto lg:max-w-[1440px] lg:flex-nowrap lg:gap-9 lg:px-12"
+  >
+    <app-logo />
+
+    <nav class="hidden shrink-0 items-center gap-6 lg:flex">
+      @for (link of navLinks; track link.category) {
+        <a routerLink="/" [queryParams]="{ category: link.category }" appLink="nav">
+          {{ link.key | transloco }}
+        </a>
+      }
+    </nav>
+
+    <label
+      for="header-search"
+      class="border-border bg-surface-muted order-3 flex w-full basis-full items-center gap-2 rounded-card border px-3.5 py-2.5 lg:order-none lg:w-auto lg:max-w-md lg:flex-1 lg:basis-auto"
+    >
+      <app-icon name="search" [size]="17" class="text-ink-faint shrink-0" />
+      <app-input id="header-search" type="search" [placeholder]="'header.search' | transloco" />
+    </label>
+
+    <div class="ml-auto flex shrink-0 items-center gap-2">
+      <button
+        type="button"
+        appButton="icon"
+        [attr.aria-label]="'header.actions.wishlist' | transloco"
+      >
+        <app-icon name="heart" />
+      </button>
+
+      <button
+        type="button"
+        appButton="icon"
+        class="hidden lg:flex"
+        [attr.aria-label]="'header.actions.messages' | transloco"
+      >
+        <app-icon name="message-circle" />
+      </button>
+
+      <button
+        type="button"
+        appButton="icon-accent"
+        [attr.aria-label]="'header.actions.profile' | transloco"
+      >
+        <app-icon name="user" />
+      </button>
+
+      <app-language-switch />
+      <app-theme-toggle />
+
+      <button type="button" appButton="primary" class="hidden lg:flex">
+        <app-icon name="plus" [size]="16" />
+        {{ 'header.actions.sell' | transloco }}
+      </button>
+    </div>
+  </div>
+</header>
