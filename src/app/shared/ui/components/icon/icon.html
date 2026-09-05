@@ -125,4 +125,66 @@
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
     </svg>
   }
+  @case ('chevron-down') {
+    <svg
+      [attr.width]="size()"
+      [attr.height]="size()"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  }
+  @case ('sliders') {
+    <svg
+      [attr.width]="size()"
+      [attr.height]="size()"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <circle cx="9" cy="6" r="2" />
+      <line x1="4" y1="12" x2="20" y2="12" />
+      <circle cx="15" cy="12" r="2" />
+      <line x1="4" y1="18" x2="20" y2="18" />
+      <circle cx="7" cy="18" r="2" />
+    </svg>
+  }
+  @case ('x') {
+    <svg
+      [attr.width]="size()"
+      [attr.height]="size()"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  }
+  @case ('check') {
+    <svg
+      [attr.width]="size()"
+      [attr.height]="size()"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  }
 }

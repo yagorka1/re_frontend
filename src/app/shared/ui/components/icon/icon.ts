@@ -1,7 +1,18 @@
 import { Component, InputSignal, input } from '@angular/core';
 
 export type IconName =
-  'search' | 'heart' | 'message-circle' | 'user' | 'plus' | 'globe' | 'sun' | 'moon';
+  | 'search'
+  | 'heart'
+  | 'message-circle'
+  | 'user'
+  | 'plus'
+  | 'globe'
+  | 'sun'
+  | 'moon'
+  | 'chevron-down'
+  | 'sliders'
+  | 'x'
+  | 'check';
 
 @Component({
   selector: 'app-icon',

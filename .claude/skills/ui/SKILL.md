@@ -73,8 +73,9 @@ of its own.
 
 **Listing gallery** — horizontal scroll-snap on mobile, thumbnail grid on desktop.
 
-**Forms** — Angular reactive forms, errors rendered under the field, submit disabled while
-the request is in flight. The sell wizard is one step per screen on mobile.
+**Forms** — Angular Signal Forms (`@angular/forms/signals`); custom controls implement
+`FormValueControl`, not `ControlValueAccessor`. Errors render under the field, submit is
+disabled while the request is in flight. The sell wizard is one step per screen on mobile.
 
 **Empty states** are required for the feed, favorites, chat and wardrobe: icon, one line of
 explanation, one action.

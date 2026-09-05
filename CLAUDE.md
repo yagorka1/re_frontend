@@ -1,8 +1,9 @@
 # re_frontend
 
-Frontend for a C2C second-hand clothing marketplace (a Vinted-like app): users list items
-they no longer wear, browse a faceted catalog, negotiate in chat, and complete an escrowed
-order with shipping.
+Frontend for a C2C second-hand marketplace with shipping (a Vinted-like app; clothing
+first, but the category tree also covers home, electronics, books and sports): users list
+things they no longer need, browse a faceted catalog, negotiate in chat, and complete an
+escrowed order with shipping.
 
 - Domain model and screens: [docs/domain.md](docs/domain.md)
 - Application architecture: [docs/architecture.md](docs/architecture.md)
