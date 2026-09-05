@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, Signal, computed, inject } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 
 import { ThemeService } from '@/core/theme/theme.service';
@@ -11,6 +11,14 @@ import { Icon } from '@/shared/ui/components/icon/icon';
   templateUrl: './theme-toggle.html',
 })
 export class ThemeToggle {
-  protected readonly themeService = inject(ThemeService);
-  protected readonly iconName = computed(() => (this.themeService.isDark() ? 'sun' : 'moon'));
+  private readonly themeService: ThemeService = inject(ThemeService);
+
+  protected readonly isDark: Signal<boolean> = this.themeService.isDark;
+  protected readonly iconName: Signal<'sun' | 'moon'> = computed(() =>
+    this.isDark() ? 'sun' : 'moon',
+  );
+
+  protected toggle(): void {
+    this.themeService.toggle();
+  }
 }

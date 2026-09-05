@@ -1,12 +1,5 @@
 {
   "header": {
-    "nav": {
-      "women": "Žene",
-      "men": "Muškarci",
-      "kids": "Deca",
-      "shoesAndBags": "Obuća i torbe"
-    },
-    "search": "Pretraga po brendu, artiklu, kategoriji…",
     "actions": {
       "wishlist": "Omiljeno",
       "messages": "Poruke",
@@ -14,6 +7,11 @@
       "sell": "Prodaj",
       "menu": "Meni",
       "closeMenu": "Zatvori meni"
+    }
+  },
+  "catalog": {
+    "filters": {
+      "search": "Pretraga po brendu, artiklu, kategoriji…"
     }
   },
   "theme": {

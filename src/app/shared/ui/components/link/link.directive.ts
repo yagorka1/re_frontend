@@ -1,4 +1,4 @@
-import { Directive, computed, input } from '@angular/core';
+import { Directive, InputSignal, Signal, computed, input } from '@angular/core';
 
 export type LinkVariant = 'nav' | 'inline' | 'muted';
 
@@ -17,7 +17,7 @@ const VARIANT_CLASSES: Record<LinkVariant, string> = {
   },
 })
 export class LinkDirective {
-  readonly appLink = input<LinkVariant>('inline');
+  public readonly appLink: InputSignal<LinkVariant> = input<LinkVariant>('inline');
 
-  protected readonly classes = computed(() => VARIANT_CLASSES[this.appLink()]);
+  protected readonly classes: Signal<string> = computed(() => VARIANT_CLASSES[this.appLink()]);
 }

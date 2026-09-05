@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Injectable, PLATFORM_ID, computed, effect, inject } from '@angular/core';
+import { Injectable, PLATFORM_ID, Signal, computed, effect, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslocoService } from '@jsverse/transloco';
 
@@ -8,7 +8,7 @@ export interface LanguageOption {
   readonly label: string;
 }
 
-const STORAGE_KEY = 'language';
+const STORAGE_KEY: string = 'language';
 
 export const AVAILABLE_LANGUAGES: readonly LanguageOption[] = [
   { id: 'en', label: 'English' },
@@ -18,27 +18,27 @@ export const AVAILABLE_LANGUAGES: readonly LanguageOption[] = [
 
 @Injectable({ providedIn: 'root' })
 export class LanguageService {
-  private readonly transloco = inject(TranslocoService);
-  private readonly document = inject(DOCUMENT);
-  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  private readonly transloco: TranslocoService = inject(TranslocoService);
+  private readonly document: Document = inject(DOCUMENT);
+  private readonly isBrowser: boolean = isPlatformBrowser(inject(PLATFORM_ID));
 
-  readonly languages = AVAILABLE_LANGUAGES;
-  readonly activeLang = toSignal(this.transloco.langChanges$, {
+  public readonly languages: readonly LanguageOption[] = AVAILABLE_LANGUAGES;
+  public readonly activeLang: Signal<string> = toSignal(this.transloco.langChanges$, {
     initialValue: this.transloco.getActiveLang(),
   });
-  readonly activeLanguage = computed(() => {
-    const active = this.activeLang();
+  public readonly activeLanguage: Signal<LanguageOption> = computed(() => {
+    const active: string = this.activeLang();
     return this.languages.find((language) => language.id === active) ?? this.languages[0];
   });
 
   constructor() {
-    const stored = this.readStoredLanguage();
+    const stored: string | null = this.readStoredLanguage();
     if (stored) {
       this.transloco.setActiveLang(stored);
     }
 
     effect(() => {
-      const active = this.activeLang();
+      const active: string = this.activeLang();
       this.document.documentElement.lang = active;
 
       if (this.isBrowser) {
@@ -47,7 +47,7 @@ export class LanguageService {
     });
   }
 
-  setLanguage(id: string): void {
+  public setLanguage(id: string): void {
     this.transloco.setActiveLang(id);
   }
 
@@ -56,7 +56,7 @@ export class LanguageService {
       return null;
     }
 
-    const stored = localStorage.getItem(STORAGE_KEY);
+    const stored: string | null = localStorage.getItem(STORAGE_KEY);
     return this.languages.some((language) => language.id === stored) ? stored : null;
   }
 }

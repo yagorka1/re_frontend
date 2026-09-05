@@ -1,8 +1,8 @@
 <button
   type="button"
   appButton="icon"
-  [attr.aria-label]="(themeService.isDark() ? 'theme.toLight' : 'theme.toDark') | transloco"
-  (click)="themeService.toggle()"
+  [attr.aria-label]="(isDark() ? 'theme.toLight' : 'theme.toDark') | transloco"
+  (click)="toggle()"
 >
   <app-icon [name]="iconName()" />
 </button>

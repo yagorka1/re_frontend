@@ -1,4 +1,4 @@
-import { Directive, computed, input } from '@angular/core';
+import { Directive, InputSignal, Signal, computed, input } from '@angular/core';
 
 export type ButtonVariant = 'icon' | 'icon-accent' | 'chip' | 'primary';
 
@@ -20,7 +20,7 @@ const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   },
 })
 export class ButtonDirective {
-  readonly appButton = input<ButtonVariant>('icon');
+  public readonly appButton: InputSignal<ButtonVariant> = input<ButtonVariant>('icon');
 
-  protected readonly classes = computed(() => VARIANT_CLASSES[this.appButton()]);
+  protected readonly classes: Signal<string> = computed(() => VARIANT_CLASSES[this.appButton()]);
 }

@@ -13,8 +13,8 @@ const LOADERS: Record<string, () => Promise<{ default: Translation }>> = {
 // identically on the server and in the browser.
 @Injectable({ providedIn: 'root' })
 class InlineTranslocoLoader implements TranslocoLoader {
-  async getTranslation(lang: string): Promise<Translation> {
-    const module = await LOADERS[lang]();
+  public async getTranslation(lang: string): Promise<Translation> {
+    const module: { default: Translation } = await LOADERS[lang]();
     return module.default;
   }
 }
