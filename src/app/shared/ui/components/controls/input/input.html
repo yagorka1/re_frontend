@@ -1,8 +1,9 @@
 <input
+  appField
   [id]="id()"
   [type]="type()"
   [placeholder]="placeholder()"
   [value]="value()"
+  [attr.aria-label]="ariaLabel()"
   (input)="value.set($any($event.target).value)"
-  class="text-ink placeholder:text-ink-faint w-full min-w-0 border-none bg-transparent text-sm outline-none"
 />

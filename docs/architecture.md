@@ -57,28 +57,29 @@ Same- or child-directory imports (`./foo`) stay relative.
 
 ```
 shared/ui/
-  components/   # atomic, style-only primitives: input, link, icon, badge, chip...
-  widgets/      # composed from components/, own layout and behavior: header, footer,
-                # search-bar, filter-panel...
+  components/            # atomic, style-only primitives: link, icon, badge, popover...
+    controls/            # form controls: input, number-input, checkbox, select...
+  widgets/               # composed from components/, own layout and behavior: header,
+                         # footer, search-bar, filter-panel...
 ```
 
 - `components/` holds pieces with no knowledge of layout context and no feature meaning —
   they take primitive inputs (`value`, `variant`, `size`) and emit primitive outputs. A
   component here must make sense standing alone, outside this app.
+- `components/controls/` is the subset that holds a value: everything implementing
+  `FormValueControl` and bindable with `[formField]`. One control per value type rather than
+  one control with a type switch — signal forms bind a single concrete type per control, so
+  a numeric field cannot share a `FormValueControl<string>`. Styling common to all of them
+  lives in `controls/field/`, applied with `appField` to the native element.
 - `widgets/` composes several `components/` (and possibly other `widgets/`) into something
   with actual layout and, sometimes, wiring to `core/` (e.g. the header reading the current
   language). Widgets may still not know about `features/`.
 - Where styling only needs to attach behavior to a native element without owning markup
-  (`Button`, `Link`), prefer a `Directive` over a wrapper `Component` — see
-  `ButtonDirective` (currently `shared/directives/button.directive.ts`, to move under
-  `components/button/` once the folder split lands). This keeps native semantics (`type`,
-  `disabled`, `href`, `aria-*`, form submission) instead of reimplementing them behind a
-  component API. Reach for a `Component` instead once the element needs its own template,
-  internal state, or (as with `Input`) integration with the forms API.
-
-This split is not applied to the existing `shared/ui/*` tree yet — `header`, `footer`,
-`icon`, `theme-toggle` and `language-switch` still sit flat. Move things into
-`components/`/`widgets/` incrementally as they're touched, rather than as one big rename.
+  (`Button`, `Link`, `Field`), prefer a `Directive` over a wrapper `Component`. This keeps
+  native semantics (`type`, `disabled`, `href`, `aria-*`, form submission) instead of
+  reimplementing them behind a component API. Reach for a `Component` instead once the
+  element needs its own template, internal state, or (as with `Input`) integration with the
+  forms API.
 
 ### Forms
 
@@ -106,6 +107,24 @@ which is what the store actually reads from.
 Search-shaped state (filters, sorting, page) is not owned by components: it is read from
 and written to the route's query params, and the store derives from the route. This keeps
 SSR, the back button and shareable links consistent.
+
+### Search state in the URL
+
+The catalog's query params are flat, named after the facets in
+[domain.md](domain.md#catalog-filters), and carry reference-data ids rather than labels:
+
+```
+q, cat, size, brand, cond, color, price_from, price_to, material, city, sort, page
+```
+
+- Multi-value facets repeat the key: `?size=12&size=14`. Angular's `queryParamMap.getAll`
+  reads them back as an array.
+- `cat` holds one node id at any depth. Ancestors are derived from the tree, never encoded as
+  extra params — a `subcat` param would break every saved link the moment a node moves.
+- `sort` values: `relevance`, `price_asc`, `price_desc`, `newest`. A param equal to the
+  default is omitted, so the canonical URL for the plain feed is `/`.
+- Parsing is tolerant: an unknown value is dropped, never an error, because saved searches
+  and external links outlive the reference data they were built on.
 
 ## State management ladder
 

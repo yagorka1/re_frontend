@@ -1,0 +1,25 @@
+<div class="relative">
+  <button
+    #trigger
+    type="button"
+    [appButton]="variant()"
+    [attr.aria-label]="ariaLabel()"
+    [attr.aria-haspopup]="ariaHasPopup()"
+    [attr.aria-expanded]="isOpen()"
+    [attr.aria-controls]="isOpen() ? panelId : null"
+    (click)="toggle()"
+  >
+    <ng-content />
+  </button>
+
+  @if (isOpen()) {
+    <div
+      [id]="panelId"
+      class="border-border bg-surface absolute top-[calc(100%+8px)] z-50 overflow-hidden rounded-card border shadow-lg"
+      [class.left-0]="align() === 'start'"
+      [class.right-0]="align() === 'end'"
+    >
+      <ng-container [ngTemplateOutlet]="panel().templateRef" />
+    </div>
+  }
+</div>
