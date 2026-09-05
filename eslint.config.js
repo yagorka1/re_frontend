@@ -19,6 +19,23 @@ module.exports = defineConfig([
     ],
     processor: angular.processInlineTemplates,
     rules: {
+      '@typescript-eslint/typedef': [
+        'error',
+        {
+          variableDeclaration: true,
+          memberVariableDeclaration: true,
+          parameter: true,
+          propertyDeclaration: true,
+        },
+      ],
+      // Conflicts with the explicit-typedef rule above: both disagree on whether a type
+      // annotation is redundant for literal-initialized values.
+      '@typescript-eslint/no-inferrable-types': 'off',
+      '@typescript-eslint/prefer-as-const': 'off',
+      '@typescript-eslint/explicit-member-accessibility': [
+        'error',
+        { accessibility: 'explicit', overrides: { constructors: 'no-public' } },
+      ],
       'no-restricted-imports': [
         'error',
         {

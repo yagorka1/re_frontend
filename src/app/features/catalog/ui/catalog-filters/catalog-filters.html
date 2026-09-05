@@ -1,4 +1,17 @@
-<section>
-  <!-- category chips, facet pills (size, brand, price, condition, city), sorting -->
-  filters
+<section class="border-border bg-surface border-b px-4 py-3 lg:px-12">
+  <div class="lg:mx-auto lg:max-w-[1440px]">
+    <label
+      for="catalog-search"
+      class="border-border bg-surface-muted flex w-full items-center gap-2 rounded-card border px-3.5 py-2.5"
+    >
+      <app-icon name="search" [size]="17" class="text-ink-faint shrink-0" />
+      <app-input
+        id="catalog-search"
+        type="search"
+        [placeholder]="'catalog.filters.search' | transloco"
+      />
+    </label>
+
+    <!-- category chips, facet pills (size, brand, price, condition, city), sorting -->
+  </div>
 </section>

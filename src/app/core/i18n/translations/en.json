@@ -1,12 +1,5 @@
 {
   "header": {
-    "nav": {
-      "women": "Women",
-      "men": "Men",
-      "kids": "Kids",
-      "shoesAndBags": "Shoes & bags"
-    },
-    "search": "Search for brand, item, category…",
     "actions": {
       "wishlist": "Wishlist",
       "messages": "Messages",
@@ -14,6 +7,11 @@
       "sell": "Sell",
       "menu": "Menu",
       "closeMenu": "Close menu"
+    }
+  },
+  "catalog": {
+    "filters": {
+      "search": "Search for brand, item, category…"
     }
   },
   "theme": {

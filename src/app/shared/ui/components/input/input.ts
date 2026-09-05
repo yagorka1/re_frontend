@@ -1,4 +1,4 @@
-import { Component, input, model } from '@angular/core';
+import { Component, InputSignal, ModelSignal, input, model } from '@angular/core';
 import type { FormValueControl } from '@angular/forms/signals';
 
 @Component({
@@ -7,9 +7,11 @@ import type { FormValueControl } from '@angular/forms/signals';
   templateUrl: './input.html',
 })
 export class Input implements FormValueControl<string> {
-  readonly value = model('');
+  public readonly value: ModelSignal<string> = model('');
 
-  readonly type = input<'text' | 'search' | 'email' | 'password'>('text');
-  readonly placeholder = input('');
-  readonly id = input<string>();
+  public readonly type: InputSignal<'text' | 'search' | 'email' | 'password'> = input<
+    'text' | 'search' | 'email' | 'password'
+  >('text');
+  public readonly placeholder: InputSignal<string> = input('');
+  public readonly id: InputSignal<string | undefined> = input<string>();
 }

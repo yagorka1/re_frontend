@@ -1,8 +1,17 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, DestroyRef, ElementRef, afterNextRender, inject, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  ElementRef,
+  Signal,
+  WritableSignal,
+  afterNextRender,
+  inject,
+  signal,
+} from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 
-import { LanguageService } from '@/core/i18n/language.service';
+import { LanguageOption, LanguageService } from '@/core/i18n/language.service';
 import { ButtonDirective } from '@/shared/ui/components/button/button.directive';
 import { Icon } from '@/shared/ui/components/icon/icon';
 
@@ -12,16 +21,19 @@ import { Icon } from '@/shared/ui/components/icon/icon';
   templateUrl: './language-switch.html',
 })
 export class LanguageSwitch {
-  protected readonly languageService = inject(LanguageService);
-  protected readonly isOpen = signal(false);
+  private readonly languageService: LanguageService = inject(LanguageService);
 
-  private readonly host = inject(ElementRef<HTMLElement>);
-  private readonly document = inject(DOCUMENT);
-  private readonly destroyRef = inject(DestroyRef);
+  protected readonly languages: readonly LanguageOption[] = this.languageService.languages;
+  protected readonly activeLang: Signal<string> = this.languageService.activeLang;
+  protected readonly isOpen: WritableSignal<boolean> = signal(false);
+
+  private readonly host: ElementRef<HTMLElement> = inject(ElementRef<HTMLElement>);
+  private readonly document: Document = inject(DOCUMENT);
+  private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor() {
     afterNextRender(() => {
-      const onDocumentClick = (event: MouseEvent) => {
+      const onDocumentClick: (event: MouseEvent) => void = (event: MouseEvent) => {
         if (this.isOpen() && !this.host.nativeElement.contains(event.target as Node)) {
           this.isOpen.set(false);
         }
@@ -34,12 +46,16 @@ export class LanguageSwitch {
     });
   }
 
-  toggle(): void {
+  protected toggle(): void {
     this.isOpen.update((open) => !open);
   }
 
-  select(id: string): void {
+  protected select(id: string): void {
     this.languageService.setLanguage(id);
     this.isOpen.set(false);
+  }
+
+  protected isActiveLanguage(id: string): boolean {
+    return this.activeLang() === id;
   }
 }
