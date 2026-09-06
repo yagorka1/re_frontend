@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { provideAppTransloco } from '@/core/i18n/transloco.config';
 import { CatalogPage } from './catalog';
@@ -7,7 +8,7 @@ describe('CatalogPage', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [CatalogPage],
-      providers: [provideAppTransloco()],
+      providers: [provideRouter([]), provideAppTransloco()],
     }).compileComponents();
   });
 

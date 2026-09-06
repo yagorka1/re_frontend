@@ -14,9 +14,12 @@ escrowed order with shipping.
 
 The app is a walking skeleton: `/` lazily loads `features/catalog`, wrapped in the shared
 header and footer. The header is built out (wordmark, wishlist/messages/profile/sell actions,
-theme and language switchers — no category nav links, no search box); search lives in
-`catalog-filters` instead, next to the category chips and facet pills. The footer and every
-feature folder past the catalog's empty placeholders are still unstyled.
+theme and language switchers — no category nav links, no search box). The catalog filter
+block is complete and runs off a local reference fixture in `features/catalog/data` — search,
+facet pills with popovers on desktop, a bottom sheet on phones, active-filter chips, all
+serialised into query params. The feed below it is still a placeholder: there is
+no search endpoint yet, so there are no results, no counts and no paging.
+The footer and every other feature folder are still unstyled.
 Most of what follows describes the target conventions, not what is already implemented.
 
 The toolchain, however, is real: ESLint, Prettier, git hooks and CI all run and pass.

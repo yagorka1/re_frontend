@@ -1,0 +1,33 @@
+<ul class="py-1" role="listbox">
+  @let empty = emptyLabel();
+
+  @if (empty !== undefined) {
+    <li>
+      <button
+        type="button"
+        role="option"
+        class="text-ink hover:bg-surface-muted flex min-h-11 w-full cursor-pointer items-center px-3 text-left text-sm"
+        [attr.aria-selected]="selected() === null"
+        [class.font-semibold]="selected() === null"
+        (click)="picked.emit(null)"
+      >
+        {{ empty }}
+      </button>
+    </li>
+  }
+
+  @for (option of options(); track option.id) {
+    <li>
+      <button
+        type="button"
+        role="option"
+        class="text-ink hover:bg-surface-muted flex min-h-11 w-full cursor-pointer items-center px-3 text-left text-sm"
+        [attr.aria-selected]="selected() === option.id"
+        [class.font-semibold]="selected() === option.id"
+        (click)="picked.emit(option.id)"
+      >
+        {{ option.label }}
+      </button>
+    </li>
+  }
+</ul>

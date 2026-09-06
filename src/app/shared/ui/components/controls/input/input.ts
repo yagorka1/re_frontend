@@ -9,6 +9,11 @@ export type InputType = 'text' | 'search' | 'email' | 'password';
   selector: 'app-input',
   imports: [FieldDirective],
   templateUrl: './input.html',
+  // The host is an element of its own, so the `w-full` on the inner input only reaches as
+  // far as the host does — without this the field collapses to its inline width.
+  host: {
+    class: 'block min-w-0 grow',
+  },
 })
 export class Input implements FormValueControl<string> {
   public readonly value: ModelSignal<string> = model('');

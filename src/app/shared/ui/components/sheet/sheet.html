@@ -1,0 +1,20 @@
+@if (open()) {
+  <div class="fixed inset-0 z-50 flex flex-col justify-end">
+    <button
+      type="button"
+      class="bg-ink/40 absolute inset-0 cursor-default"
+      [attr.aria-label]="closeLabel()"
+      (click)="open.set(false)"
+    ></button>
+
+    <div
+      #panel
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="ariaLabel()"
+      class="border-border bg-surface relative flex max-h-[85vh] flex-col rounded-t-2xl border-t"
+    >
+      <ng-content />
+    </div>
+  </div>
+}

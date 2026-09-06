@@ -25,7 +25,7 @@ Escape handling, `aria-expanded`. That shell already exists, written inline insi
 
 Each stage builds, lints and tests on its own, so each is one pull request.
 
-### 1. Primitives in `shared/ui/components`
+### 1. Primitives in `shared/ui/components` — done
 
 Value-holding controls go under `components/controls`, the rest sits a level up.
 
@@ -36,8 +36,7 @@ Value-holding controls go under `components/controls`, the rest sits a level up.
   proves the API.
 - `checkbox` — a native input wrapped in a label, implements `FormValueControl<boolean>`.
 - `ButtonDirective` — the `chip` variant is really the filter pill from the mockup, so it is
-  renamed `pill`. `LinkDirective` gains `chip` and `chip-active` for the category chips,
-  which are anchors rather than buttons because each one is a crawlable catalog URL.
+  renamed `pill`.
 - `number-input` — the price range's control, a separate component rather than a mode of
   `Input`: signal forms bind one concrete value type per control, so a field whose model is a
   number cannot share a `FormValueControl<string>`. It avoids `<input type="number">`, which
@@ -45,7 +44,7 @@ Value-holding controls go under `components/controls`, the rest sits a level up.
   values. `FieldDirective` carries the styling both controls share.
 - `Icon` — `chevron-down`, `sliders`, `x`, `check`.
 
-### 2. State and reference data
+### 2. State and reference data — done
 
 - Types in `features/catalog/model`: category node, facet option, filter state, sort option.
 - Pure parse and serialise functions for the query-parameter scheme. Unknown values are
@@ -57,10 +56,15 @@ Value-holding controls go under `components/controls`, the rest sits a level up.
   local fixture shaped like the future API response. The `catalog` module in `re_backend` is
   still empty, so this is temporary and must be marked as such.
 
-### 3. Desktop block
+Two rules came out of the build and stage 3 has to honour them: a change to anything but the
+page returns to page one, and `relevance` only exists while a query does — both are applied
+in the store and in the parser, so a URL round trip never changes the state. Conditions are a
+closed domain set validated at parse time; reference ids are not, and stale ones fall away
+where the options are rendered.
 
-`catalog-filters` becomes a container: search field, category chip row with breadcrumbs,
-pill bar, sort control, result count. One component per facet shape in
+### 3. Desktop block — done
+
+`catalog-filters` becomes a container: search field, pill bar, sort control, result count. One component per facet shape in
 `features/catalog/ui`, each controlled through a `value` input and a change output:
 
 - category tree,
@@ -69,16 +73,36 @@ pill bar, sort control, result count. One component per facet shape in
 - sort,
 - active-filter chips with a reset action.
 
-### 4. Mobile and tests
+The result count is the one part still missing: there is no search endpoint to count. Facet
+counts are wired through `FacetOption.count` and stay undefined until then.
+
+Facet components decide neither their width nor their height — the popover panel caps and
+scrolls them, the sheet lets them run — otherwise the sheet ends up with a scrollbar inside
+a scrollbar.
+
+### 4. Mobile and tests — done
 
 A bottom sheet reusing the same facet components, with scroll locking and focus trapping.
 Tests: a round trip through parse and serialise, popover open and close, facet change
 outputs, and the pill bar rendering.
 
+The sheet is `shared/ui/components/sheet` — a modal panel, not catalog-specific. Below `lg`
+the pill bar is replaced by one button that opens it, because a popover anchored to a pill
+has nowhere to open on a 390px screen, and a horizontally scrolling pill bar would clip the
+panels anyway. Its facets are collapsed `<details>` sections: expanded, the eight of them ran
+to several screens and the last ones were unreachable in practice.
+
+Reference labels (categories, colours, materials, cities) are translated through
+`catalog.reference.*` for as long as the fixture stands in for the API. `CatalogLabels` is
+the only place any component reads options from — reading the fixture directly leaves the
+labels stuck in English when the language changes. Sizes and brands are left untranslated.
+
 ## Open questions
 
-- **Desktop layout.** The `ui` skill calls for a sidebar; the mockup and Vinted both use a
-  pill bar with popovers. The pill bar is the recommendation, which makes the skill wrong
-  and in need of a fix. Undecided, and it governs stage 3.
 - **City facet.** It exists only because pickup exists. If the product goes delivery-only,
   the facet goes with it.
+
+## Settled
+
+- **Desktop layout: a pill bar, not a sidebar.** The feed is the page, and a fixed column
+  costs it a card per row at every breakpoint. The `ui` skill has been corrected to match.

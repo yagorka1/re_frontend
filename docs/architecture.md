@@ -124,7 +124,16 @@ q, cat, size, brand, cond, color, price_from, price_to, material, city, sort, pa
 - `sort` values: `relevance`, `price_asc`, `price_desc`, `newest`. A param equal to the
   default is omitted, so the canonical URL for the plain feed is `/`.
 - Parsing is tolerant: an unknown value is dropped, never an error, because saved searches
-  and external links outlive the reference data they were built on.
+  and external links outlive the reference data they were built on. Only closed sets — sort
+  and condition — are validated; reference ids pass through and fall away where options are
+  rendered.
+- Changing anything but the page returns to page one, and `relevance` exists only while a
+  query does. Both rules live in the parser as well as the store, so a state survives a round
+  trip through the URL unchanged.
+- Facet labels are display text from the API (already localised), never translation keys.
+  The exceptions are values the front end owns — conditions and sort options — which are
+  translated here. While the catalog reference data is still a local fixture, its labels are
+  translated here too; that goes away with the fixture.
 
 ## State management ladder
 
