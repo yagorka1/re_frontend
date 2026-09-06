@@ -33,6 +33,9 @@ function parseAmount(raw: string): number | null {
   selector: 'app-number-input',
   imports: [FieldDirective],
   templateUrl: './number-input.html',
+  host: {
+    class: 'block min-w-0 grow',
+  },
 })
 export class NumberInput implements FormValueControl<number | null> {
   public readonly value: ModelSignal<number | null> = model<number | null>(null);

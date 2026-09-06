@@ -22,8 +22,6 @@
     body{ margin: 0; font-family: 'Manrope', system-ui, sans-serif; background: var(--bg); color: var(--ink); }
     a{ color: var(--terracotta); text-decoration: none; }
     a:hover{ color: var(--terracotta-deep); }
-    .chip{ display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 999px; font-size: 12.5px; font-weight: 600; white-space: nowrap; border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft); flex-shrink: 0; }
-    .chip.active{ background: var(--ink); color: var(--surface); border-color: var(--ink); }
     .filter-pill{ display: inline-flex; align-items: center; gap: 5px; padding: 7px 12px; border-radius: 8px; font-size: 12.5px; font-weight: 600; white-space: nowrap; border: 1px solid var(--line); background: var(--surface); color: var(--ink); flex-shrink: 0; }
     .badge{ position: absolute; bottom: 8px; left: 8px; padding: 3px 7px; border-radius: 5px; background: rgba(255,255,255,0.92); font-size: 10px; font-weight: 700; color: var(--ink-soft); }
     .badge.new{ background: var(--sage-tint); color: var(--sage); }
@@ -47,16 +45,6 @@
       </button>
     </div>
   </header>
-
-  <!-- Category chips -->
-  <div style="display: flex; align-items: center; gap: 8px; padding: 0 20px 14px; overflow: hidden; flex-shrink: 0;">
-    <span class="chip active">All</span>
-    <span class="chip">Women</span>
-    <span class="chip">Men</span>
-    <span class="chip">Kids</span>
-    <span class="chip">Shoes</span>
-    <span class="chip">Bags</span>
-  </div>
 
   <!-- Search -->
   <div style="padding: 0 20px 14px; flex-shrink: 0;">

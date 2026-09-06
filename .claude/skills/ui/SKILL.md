@@ -67,9 +67,11 @@ favorite button must not trigger navigation.
 **Feed** — CSS grid, mobile-first: 2 columns on phones, 3–4 on tablets, 5–6 on desktop.
 Loading skeletons must match card height or the layout jumps.
 
-**Filters** — a sidebar on desktop, a bottom sheet on mobile. Values are read from and
-written to route query params; the filter component is controlled and holds no query state
-of its own.
+**Filters** — a pill bar on desktop (one popover pill per facet, above a full-width feed),
+a bottom sheet on mobile. Not a sidebar: the feed is the page, and
+a fixed column costs it a card per row at every breakpoint. Values are read from and written
+to route query params; the filter component is controlled and holds no query state of its
+own.
 
 **Listing gallery** — horizontal scroll-snap on mobile, thumbnail grid on desktop.
 

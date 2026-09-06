@@ -1,0 +1,167 @@
+<app-sheet
+  [(open)]="open"
+  [ariaLabel]="'catalog.filters.title' | transloco"
+  [closeLabel]="'catalog.filters.close' | transloco"
+>
+  <header class="border-border flex items-center justify-between border-b px-4 py-3">
+    <h2 class="text-ink text-base font-bold">{{ 'catalog.filters.title' | transloco }}</h2>
+    <button
+      appButton="icon"
+      type="button"
+      [attr.aria-label]="'catalog.filters.close' | transloco"
+      (click)="open.set(false)"
+    >
+      <app-icon name="x" />
+    </button>
+  </header>
+
+  <!-- Collapsed sections, so every facet is one tap away: expanded, the eight of them run to
+       several screens and the last ones are unreachable in practice. Native <details> rather
+       than a signal — the open state is view state that dies with the sheet, and the element
+       brings its own keyboard and screen-reader behaviour. -->
+  <div class="grow overflow-y-auto px-4 py-2">
+    <details name="facet" class="border-border border-b">
+      <summary class="text-ink flex min-h-12 cursor-pointer list-none items-center justify-between">
+        <span class="text-sm font-semibold">{{ 'catalog.filters.category' | transloco }}</span>
+        <app-icon name="chevron-down" [size]="14" class="text-ink-faint" />
+      </summary>
+      <app-catalog-facet-categories
+        class="-mx-3 block"
+        [tree]="categories()"
+        [selected]="filters().category"
+        (picked)="setCategory($event)"
+      />
+    </details>
+
+    <details name="facet" class="border-border border-b">
+      <summary class="text-ink flex min-h-12 cursor-pointer list-none items-center justify-between">
+        <span class="text-sm font-semibold">{{ 'catalog.filters.price' | transloco }}</span>
+        <app-icon name="chevron-down" [size]="14" class="text-ink-faint" />
+      </summary>
+      <app-catalog-facet-price
+        class="-mx-3 block"
+        [from]="filters().priceFrom"
+        [to]="filters().priceTo"
+        (applied)="setPrice($event)"
+      />
+    </details>
+
+    <details name="facet" class="border-border border-b">
+      <summary class="text-ink flex min-h-12 cursor-pointer list-none items-center justify-between">
+        <span class="text-sm font-semibold">{{ 'catalog.filters.size' | transloco }}</span>
+        <span class="flex items-center gap-2">
+          @if (count('sizes') > 0) {
+            <span class="text-brand text-sm font-semibold">{{ count('sizes') }}</span>
+          }
+          <app-icon name="chevron-down" [size]="14" class="text-ink-faint" />
+        </span>
+      </summary>
+      <app-catalog-facet-options
+        class="-mx-3 block"
+        [options]="sizes"
+        [selected]="filters().sizes"
+        (toggled)="toggle('sizes', $event)"
+      />
+    </details>
+
+    <details name="facet" class="border-border border-b">
+      <summary class="text-ink flex min-h-12 cursor-pointer list-none items-center justify-between">
+        <span class="text-sm font-semibold">{{ 'catalog.filters.brand' | transloco }}</span>
+        <span class="flex items-center gap-2">
+          @if (count('brands') > 0) {
+            <span class="text-brand text-sm font-semibold">{{ count('brands') }}</span>
+          }
+          <app-icon name="chevron-down" [size]="14" class="text-ink-faint" />
+        </span>
+      </summary>
+      <app-catalog-facet-options
+        class="-mx-3 block max-h-72 overflow-y-auto"
+        [searchable]="true"
+        [options]="brands"
+        [selected]="filters().brands"
+        (toggled)="toggle('brands', $event)"
+      />
+    </details>
+
+    <details name="facet" class="border-border border-b">
+      <summary class="text-ink flex min-h-12 cursor-pointer list-none items-center justify-between">
+        <span class="text-sm font-semibold">{{ 'catalog.filters.condition' | transloco }}</span>
+        <span class="flex items-center gap-2">
+          @if (count('conditions') > 0) {
+            <span class="text-brand text-sm font-semibold">{{ count('conditions') }}</span>
+          }
+          <app-icon name="chevron-down" [size]="14" class="text-ink-faint" />
+        </span>
+      </summary>
+      <app-catalog-facet-options
+        class="-mx-3 block"
+        [options]="conditionOptions()"
+        [selected]="filters().conditions"
+        (toggled)="toggle('conditions', $event)"
+      />
+    </details>
+
+    <details name="facet" class="border-border border-b">
+      <summary class="text-ink flex min-h-12 cursor-pointer list-none items-center justify-between">
+        <span class="text-sm font-semibold">{{ 'catalog.filters.color' | transloco }}</span>
+        <span class="flex items-center gap-2">
+          @if (count('colors') > 0) {
+            <span class="text-brand text-sm font-semibold">{{ count('colors') }}</span>
+          }
+          <app-icon name="chevron-down" [size]="14" class="text-ink-faint" />
+        </span>
+      </summary>
+      <app-catalog-facet-colors
+        class="-mx-3 block"
+        [options]="colors()"
+        [selected]="filters().colors"
+        (toggled)="toggle('colors', $event)"
+      />
+    </details>
+
+    <details name="facet" class="border-border border-b">
+      <summary class="text-ink flex min-h-12 cursor-pointer list-none items-center justify-between">
+        <span class="text-sm font-semibold">{{ 'catalog.filters.material' | transloco }}</span>
+        <span class="flex items-center gap-2">
+          @if (count('materials') > 0) {
+            <span class="text-brand text-sm font-semibold">{{ count('materials') }}</span>
+          }
+          <app-icon name="chevron-down" [size]="14" class="text-ink-faint" />
+        </span>
+      </summary>
+      <app-catalog-facet-options
+        class="-mx-3 block"
+        [options]="materials()"
+        [selected]="filters().materials"
+        (toggled)="toggle('materials', $event)"
+      />
+    </details>
+
+    <details name="facet">
+      <summary class="text-ink flex min-h-12 cursor-pointer list-none items-center justify-between">
+        <span class="text-sm font-semibold">{{ 'catalog.filters.city' | transloco }}</span>
+        <app-icon name="chevron-down" [size]="14" class="text-ink-faint" />
+      </summary>
+      <app-catalog-facet-choice
+        class="-mx-3 block"
+        [options]="cities()"
+        [selected]="filters().city"
+        [emptyLabel]="'catalog.filters.anyCity' | transloco"
+        (picked)="setCity($event)"
+      />
+    </details>
+  </div>
+
+  <footer class="border-border flex items-center gap-3 border-t px-4 py-3">
+    <button
+      type="button"
+      class="text-ink-faint hover:text-ink min-h-11 cursor-pointer text-sm underline underline-offset-2"
+      (click)="reset()"
+    >
+      {{ 'catalog.filters.clearAll' | transloco }}
+    </button>
+    <button appButton="primary" type="button" class="grow justify-center" (click)="open.set(false)">
+      {{ 'catalog.filters.showResults' | transloco }}
+    </button>
+  </footer>
+</app-sheet>

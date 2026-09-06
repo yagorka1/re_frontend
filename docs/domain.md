@@ -70,17 +70,17 @@ price offers and links to the resulting order.
 One fixed set of facets for every section of the tree, as on Vinted. Sections do not add
 facets of their own; they change the value set or hide a facet that does not apply.
 
-| Facet     | Kind      | Notes                                                                                                       |
-| --------- | --------- | ----------------------------------------------------------------------------------------------------------- |
-| Search    | text      | Matches title and description. Enables the relevance sort.                                                  |
-| Category  | tree node | Chips show the children of the current node, a breadcrumb leads back up, the dropdown shows the whole tree. |
-| Size      | multi     | Chart depends on the category node; hidden where none applies.                                              |
-| Brand     | multi     | Searchable list, popular brands first.                                                                      |
-| Condition | multi     | The five levels above.                                                                                      |
-| Color     | multi     | Swatches.                                                                                                   |
-| Price     | range     | `from` / `to` in one currency.                                                                              |
-| Material  | multi     | List depends on the category node; hidden where none applies.                                               |
-| City      | single    | Exists because pickup exists. Drop it if the product goes delivery-only.                                    |
+| Facet     | Kind      | Notes                                                                    |
+| --------- | --------- | ------------------------------------------------------------------------ |
+| Search    | text      | Matches title and description. Enables the relevance sort.               |
+| Category  | tree node | A dropdown over the whole tree, two levels deep at a time.               |
+| Size      | multi     | Chart depends on the category node; hidden where none applies.           |
+| Brand     | multi     | Searchable list, popular brands first.                                   |
+| Condition | multi     | The five levels above.                                                   |
+| Color     | multi     | Swatches.                                                                |
+| Price     | range     | `from` / `to` in one currency.                                           |
+| Material  | multi     | List depends on the category node; hidden where none applies.            |
+| City      | single    | Exists because pickup exists. Drop it if the product goes delivery-only. |
 
 Sorting: relevance (only with a search query), price ascending, price descending, newest.
 The default is newest, or relevance when a query is present.

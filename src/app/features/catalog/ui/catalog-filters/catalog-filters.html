@@ -1,21 +1,220 @@
 <section class="border-border bg-surface border-b px-4 py-3 lg:px-12">
-  <div class="lg:mx-auto lg:max-w-[1440px]">
-    <label
-      for="catalog-search"
-      class="border-border bg-surface-muted flex w-full items-center gap-2 rounded-card border px-3.5 py-2.5"
-    >
-      <app-icon name="search" [size]="17" class="text-ink-faint shrink-0" />
-      <app-input
-        id="catalog-search"
-        type="search"
-        [placeholder]="'catalog.filters.search' | transloco"
-      />
-    </label>
+  <div class="flex flex-col gap-3 lg:mx-auto lg:max-w-[1440px]">
+    <form (submit)="$event.preventDefault(); submitSearch()">
+      <label
+        for="catalog-search"
+        class="border-border bg-surface-muted flex w-full items-center gap-2 rounded-card border px-3.5 py-2.5"
+      >
+        <app-icon name="search" [size]="17" class="text-ink-faint shrink-0" />
+        <app-input
+          id="catalog-search"
+          type="search"
+          [value]="searchDraft()"
+          (valueChange)="searchDraft.set($event)"
+          [placeholder]="'catalog.filters.search' | transloco"
+        />
+      </label>
+      <button type="submit" class="sr-only">{{ 'catalog.filters.submit' | transloco }}</button>
+    </form>
 
-    <!--
-      category breadcrumb + chips (children of the current node),
-      facet pills (size, brand, condition, color, price, material, city), sorting —
-      see docs/domain.md#catalog-filters
-    -->
+    <!-- Phones: one button for every facet, plus the sort pill. A popover anchored to a pill
+         has nowhere to open on a 390px screen, so the sheet takes over below `lg`. -->
+    <div class="flex items-center gap-2 lg:hidden">
+      <button
+        appButton="pill"
+        type="button"
+        data-testid="open-filters"
+        (click)="isSheetOpen.set(true)"
+      >
+        <app-icon name="sliders" [size]="14" />
+        {{ 'catalog.filters.title' | transloco }}
+        @if (activeFacetCount() > 0) {
+          <span class="text-brand">{{ activeFacetCount() }}</span>
+        }
+      </button>
+
+      <app-popover
+        #mobileSortPopover
+        align="end"
+        ariaHasPopup="listbox"
+        [ariaLabel]="'catalog.filters.sort' | transloco"
+      >
+        <span>{{ sortLabel() }}</span>
+        <app-icon name="chevron-down" [size]="12" />
+
+        <ng-template appPopoverPanel>
+          <app-catalog-facet-choice
+            class="block min-w-52"
+            [options]="sortOptions()"
+            [selected]="filters().sort"
+            (picked)="setSort($event); mobileSortPopover.close()"
+          />
+        </ng-template>
+      </app-popover>
+    </div>
+
+    <!-- Desktop: the pill bar. It wraps rather than scrolling sideways, because a horizontal
+         overflow container would clip the popover panels. -->
+    <div class="hidden flex-wrap items-center gap-2 lg:flex" data-testid="pill-bar">
+      <app-popover #categoryPopover [ariaLabel]="'catalog.filters.category' | transloco">
+        <span>{{ 'catalog.filters.category' | transloco }}</span>
+        <app-icon name="chevron-down" [size]="12" />
+
+        <ng-template appPopoverPanel>
+          <app-catalog-facet-categories
+            class="block max-h-96 w-72 overflow-y-auto"
+            [tree]="categories()"
+            [selected]="filters().category"
+            (picked)="setCategory($event); categoryPopover.close()"
+          />
+        </ng-template>
+      </app-popover>
+
+      <app-popover [ariaLabel]="'catalog.filters.size' | transloco">
+        <span>{{ 'catalog.filters.size' | transloco }}</span>
+        @if (count('sizes') > 0) {
+          <span class="text-brand">{{ count('sizes') }}</span>
+        }
+        <app-icon name="chevron-down" [size]="12" />
+
+        <ng-template appPopoverPanel>
+          <app-catalog-facet-options
+            class="block max-h-80 w-64 overflow-y-auto"
+            [options]="sizes"
+            [selected]="filters().sizes"
+            (toggled)="toggle('sizes', $event)"
+          />
+        </ng-template>
+      </app-popover>
+
+      <app-popover [ariaLabel]="'catalog.filters.brand' | transloco">
+        <span>{{ 'catalog.filters.brand' | transloco }}</span>
+        @if (count('brands') > 0) {
+          <span class="text-brand">{{ count('brands') }}</span>
+        }
+        <app-icon name="chevron-down" [size]="12" />
+
+        <ng-template appPopoverPanel>
+          <app-catalog-facet-options
+            class="block max-h-80 w-64 overflow-y-auto"
+            [searchable]="true"
+            [options]="brands"
+            [selected]="filters().brands"
+            (toggled)="toggle('brands', $event)"
+          />
+        </ng-template>
+      </app-popover>
+
+      <app-popover [ariaLabel]="'catalog.filters.price' | transloco">
+        <span>{{ 'catalog.filters.price' | transloco }}</span>
+        <app-icon name="chevron-down" [size]="12" />
+
+        <ng-template appPopoverPanel>
+          <app-catalog-facet-price
+            class="block w-64"
+            [from]="filters().priceFrom"
+            [to]="filters().priceTo"
+            (applied)="setPrice($event)"
+          />
+        </ng-template>
+      </app-popover>
+
+      <app-popover [ariaLabel]="'catalog.filters.condition' | transloco">
+        <span>{{ 'catalog.filters.condition' | transloco }}</span>
+        @if (count('conditions') > 0) {
+          <span class="text-brand">{{ count('conditions') }}</span>
+        }
+        <app-icon name="chevron-down" [size]="12" />
+
+        <ng-template appPopoverPanel>
+          <app-catalog-facet-options
+            class="block max-h-80 w-64 overflow-y-auto"
+            [options]="conditionOptions()"
+            [selected]="filters().conditions"
+            (toggled)="toggle('conditions', $event)"
+          />
+        </ng-template>
+      </app-popover>
+
+      <app-popover [ariaLabel]="'catalog.filters.color' | transloco">
+        <span>{{ 'catalog.filters.color' | transloco }}</span>
+        @if (count('colors') > 0) {
+          <span class="text-brand">{{ count('colors') }}</span>
+        }
+        <app-icon name="chevron-down" [size]="12" />
+
+        <ng-template appPopoverPanel>
+          <app-catalog-facet-colors
+            class="block max-h-80 w-64 overflow-y-auto"
+            [options]="colors()"
+            [selected]="filters().colors"
+            (toggled)="toggle('colors', $event)"
+          />
+        </ng-template>
+      </app-popover>
+
+      <app-popover [ariaLabel]="'catalog.filters.material' | transloco">
+        <span>{{ 'catalog.filters.material' | transloco }}</span>
+        @if (count('materials') > 0) {
+          <span class="text-brand">{{ count('materials') }}</span>
+        }
+        <app-icon name="chevron-down" [size]="12" />
+
+        <ng-template appPopoverPanel>
+          <app-catalog-facet-options
+            class="block max-h-80 w-64 overflow-y-auto"
+            [options]="materials()"
+            [selected]="filters().materials"
+            (toggled)="toggle('materials', $event)"
+          />
+        </ng-template>
+      </app-popover>
+
+      <app-popover #cityPopover [ariaLabel]="'catalog.filters.city' | transloco">
+        <span>{{ 'catalog.filters.city' | transloco }}</span>
+        <app-icon name="chevron-down" [size]="12" />
+
+        <ng-template appPopoverPanel>
+          <app-catalog-facet-choice
+            class="block min-w-52"
+            [options]="cities()"
+            [selected]="filters().city"
+            [emptyLabel]="'catalog.filters.anyCity' | transloco"
+            (picked)="setCity($event); cityPopover.close()"
+          />
+        </ng-template>
+      </app-popover>
+
+      <div class="grow"></div>
+
+      <app-popover
+        #sortPopover
+        align="end"
+        ariaHasPopup="listbox"
+        [ariaLabel]="'catalog.filters.sort' | transloco"
+      >
+        <span>{{ 'catalog.filters.sortValue' | transloco: { value: sortLabel() } }}</span>
+        <app-icon name="chevron-down" [size]="12" />
+
+        <ng-template appPopoverPanel>
+          <app-catalog-facet-choice
+            class="block min-w-52"
+            [options]="sortOptions()"
+            [selected]="filters().sort"
+            (picked)="setSort($event); sortPopover.close()"
+          />
+        </ng-template>
+      </app-popover>
+    </div>
+
+    @if (activeFacetCount() > 0) {
+      <app-catalog-active-filters
+        [filters]="activeFilters()"
+        (removed)="remove($event)"
+        (cleared)="clearAll()"
+      />
+    }
   </div>
+
+  <app-catalog-filters-sheet [(open)]="isSheetOpen" />
 </section>
